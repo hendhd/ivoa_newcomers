@@ -1,0 +1,378 @@
+\documentclass[twoside]{article}[12pt]
+
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[escape]{votutorial}
+
+\lstset{style=daiquiri, language=SQL}
+
+\title {Dancing the VOltz}
+\author {Hendrik Heinl, Dave Morris}
+
+\titlepicture{escape-logo}
+% \renewcommand{\today}{August 31, 2018}
+
+\begin {document}
+
+\input{input_standards}
+
+\maketitle
+
+\pagebreak
+\begin {abstract}
+The shear amount of data available for astronomy today, offered by
+distributed services not only demands a specific set of skills from
+(data) scientists: it's obvious that automated processes and machine
+readable (machine "learnable") interfaces and standards are necessary to
+combine data from different sources, instruments and messengers. The
+IVOA defines such standards and protocols and introduces them to the
+community. At the same time, the ESCAPE project links partners from
+different instruments with the european VO community to enable a FAIR
+access to the data.
+
+Here we want to show which data already is available and at the same time want
+to introduce to the recent standards that enable you access data using
+pyVO, the Python API to the Virtual Observatory.
+
+Eventually we want to give a glance on what's in the pipeline in regard
+of new standards.
+
+This tutorial is presented at the newcomers session for the IVOA
+Interoperability meeting in May 2021\end{abstract}
+
+\usedsoftware{\Topcat\ V4.7, \Aladin\ V11.0}
+
+\section{Starting out}
+We will use the VO tools TOPCAT, Aladin and pyVO. These client
+software can be found here:
+
+Aladin: \url{\linkAladin}
+
+TOPCAT: \url{\linkTopcat}
+
+We will also use PyVO and astropy. These are best installed from your
+distribution packages. 
+
+A comprehensive collection of the examples in this tutorial as well as
+installation scripts you will find on
+\href{https://github.com/hendhd/hyantis}{github}. Checkout the hyantis
+repository and follow the README instructions. 
+
+\section {TOPCAT, SCS and TAP}
+This tutorial will work along the use case of searching for neutrino
+data from a VO-service and combine these with data from catalogues using
+Topcat. In the second part we will be using PyVO to find and access
+observational dataproducts on different VO services.
+We are well aware that scientifically speaking this does not make a lot
+sense (yet), but this tutorial is meant to give an overview over the
+existing VO standards and protocols, and how these are developed within
+the IVOA Working Groups and Interest Groups. 
+
+
+\tutstep[Finding Neutrino data in the VO-registry]
+
+We start this use case with searching and accessing neutrino data
+that is available on VO services. Start Topcat and click on
+\menu{VO}\goto \menu{Cone Search}. In the Cone Search window enter
+\entry{neutrino} as \key{Keywords} and click on \menu{Find Services}.
+After a few moments you see the results coming in as a list of services
+providing data related to the keyword. You see that the list provides
+you with some information of what the data of the service contains. In
+the description you also get information about the different data
+provides.
+
+\REGISTRY
+
+Mark different rows and watch the \key{URL} change in the field below. This meta data is meant to give you an idea of what you can expect from the services and if they are of
+interest for you.
+
+With this little example you already get an idea of what the VO
+standards and protocols are about: standardize publishing, searching and
+accessing data and making it reusable. 
+
+% Dave intercept to talk about the registry
+
+\begin{exercise}Of course you may not be interested in neutrino data.
+Try to find the messengers that are of importance for you instead: try radio,
+infrared or gamma ray, or whatever is suitable for you. Note: here the
+registry is searching for SCS services only. The searches for other
+service protocols (SIA, TAP, SSAP) work similar. 
+\end{exercise}
+
+\tutstep[Retrieve neutrino data through a Cone Search]
+
+For our example, we select the service provided by km3net by marking the
+service by the title \key{ANTARES 2007-2017}. We will get a bunch of
+neutrino events to use in the next steps.  In \key{Cone parameters}
+for \key{RA} enter \entry{43}, for \key{Dec} enter \entry{35} and and give
+a \key{Radius} of \entry{20} degrees. Then click on \menu{OK}. Within
+seconds the data will be loaded into Topcat and you see the table appear
+in the main window of Topcat.
+
+The protocol we used is the Simple Cone Search (SCS).
+
+% Dave talks about SCS 
+
+\SCS
+The table we received from the SCS is a VO-Table, which provides not
+only the actual data, but also some metadata. So let's have a look at
+it. We click on \menu{Views}\goto \menu{Column Info}. Here you can get some
+information about the columns. You see that the data provides us with a
+modified Julian Date of when the neutrino event was ovserved. If we
+scroll a bit to the right, we see the UCD (Unified Content Descriptors).
+In charge of UCDs is the Semantics WG. 
+
+\UCD
+
+We can
+plot some of the data with \menu{Graphics}, but so far we wouldn't have
+much more than positions to see. 
+
+The table we received from the SCS is a VO-Table, which provides not
+only the actual data, but also some metadata. 
+
+\tutstep[Adding catalogue data to the neutrino candidates with TAP]
+
+In this step we want to combine our neutrino data with catalogue data
+from SDSS. Catalogue data typically is table data, so we will use the
+Table Access Protocol and the corresponding Query language ADQL to do
+so. There is a lot more to say about TAP and ADQL than we will do here.
+A comprehensive ADQL introduction is linked in the References. 
+
+In Topcat go to \menu{VO} \goto\menu{TAP}. The TAP window will open and
+after a few moments you will see a list of services in the window.
+Analogously to the Cone Search window, you can use the TAP window to
+search the VO-registry for data. At \key{Keywords} we will enter
+\entry{SDSS} to search for services providing us with those data. Often
+you will find the most recent catalogue data from dedicated services
+related by the publishers of the catalogues. You may also find them on
+the TAP Service of Vizier. Many Services providers try to anticipate
+which data combination might be of interest for the users. So it's not
+uncommon to find surveys like 2MASS or SDSS on several services. 
+\TAPSTD
+
+As for SDSS you see a few options to chose from. We will select the
+\key{GAVO data center} (Note: the reasons here is due to the performance
+of the tutorial: we want query results to come in fast. Real science
+takes time and it is completely acceptable to run queries for hours).
+Click on \menu{Use Service} to get to the TAP window of the Service. 
+
+Give it a few moments to load the metadat of the service into the TAP
+window. On the left you see a tree of the catalogues and tables on thes
+service, on the right is the metadata browser on these tables. Mark any
+table and see what the description of the table and the columns tell you
+about the data in the table. This meta data still is part of the TAP
+standard and is very helpful for data discovery and of course for the
+data access using ADQL. 
+
+In the upper left of the meta data at \key{Find:} enter \entry{sdss} to
+find the table containing this survey. In this example we just want to
+collect the identifier of an object, the position in ra and dec and the
+colours in the u, g, r, i and z band. We will make use of the TAP
+feature TAP UPLOAD, to join our local table with results from the remote
+service. In the lower window at \menu{ADQL Text}
+click on \menu{Examples} \goto \menu{Upload} \goto\menu{Upload Join}. You see an example
+ADQL query appearing in the field:
+
+
+\lstset{style=daiquiri, language=SQL}
+\begin{lstlisting}
+SELECT
+   TOP 1000
+   *
+   FROM sdssdr7.sources AS db
+   JOIN TAP_UPLOAD.t1 AS tc
+   ON 1=CONTAINS(POINT('ICRS', db.ra, db.dec),
+                 CIRCLE('ICRS', tc.ra, tc.decl, 5./3600.))
+\end{lstlisting}
+
+Now at the first glance that may look confusing, so let's go through it
+step by step. Each ADQL query starts with \sql{SELECT} followed by
+specifications of ``what'' to select, what to do with the selected records
+and how to return the results. \sql{TOP 1000}
+means the first 1000 data records will be returned, which match the
+whole query. 
+With \sql{*} we select all columns of matching data records. Here will
+will modify the query, because we are not interested in all of the
+columns of SDSS. Instead of \sql{*} we will write: 
+\sql{tc.*, db.objid, db.ra, db.dec, db.u, db.g, db.r, db.i, db.z}. This
+means we want to keep all columns from our local table (which is called
+tc) and add the columns from the remote table (which is called db). 
+\sql{FROM sdss.sources} specifies the table of the TAP service we
+want to query. 
+The next lines are the query conditions. In our example we use the ADQL
+built in functions that defines the upload join. This means we define a
+circle around every object from our local table, and the database sell
+check if any data set of the sdss table lies within any of these
+circles. 
+A little confusing may be the \sql{1=CONTAINS}. This is due to the boolean
+result returned by the function \sql{CONTAINS}. A result of \sql{1}
+means \verb|true| whereas \sql{0} means \verb|false|. 
+\sql{POINT} expresses a point, the right ascension and the declination
+in degrees. Our query takes the coordinates from the table using the columns
+\sql{ra} and \sql{dec}. 
+Analogously \sql{CIRCLE} expresses a cone in space, taking \sql{ra} and
+\sql{decl} from our local table. The last entry defines the radius of
+the circle in an angle in decimal degrees. The whole query looks like
+this: 
+
+\lstset{style=daiquiri, language=SQL}
+\begin{lstlisting}
+SELECT
+   TOP 1000
+   tc.*, db.objid, db.ra, db.dec, db.u, db.g, db.r, db.i, db.z
+   FROM sdssdr7.sources AS db
+   JOIN TAP_UPLOAD.t1 AS tc
+   ON 1=CONTAINS(POINT('ICRS', db.ra, db.dec),
+                 CIRCLE('ICRS', tc.ra, tc.decl, 10./3600.))
+\end{lstlisting}
+
+Click on \menu{Run Query} and the result should come in rather fast.
+Again have a look at the new table. You see that we added a few columns,
+but it seemed that we lost some rows. This is due to the query: the
+database did only return those data records that matched our conditions.
+Not matching records are discarded.
+\ADQLSTD
+
+\begin{exercise}
+You can control the ADQL JOIN behaviour by using the alternatives
+\sql{LEFT OUTER JOIN, RIGHT OUTER JOIN} or \sql{FULL OUTER JOIN}. The
+default command is \sql{INNER JOIN}. Play around with these options,
+they might become usefull in future. 
+\end{exercise}
+
+
+
+\section{PyVO and ObsTAP}
+
+PyVO is the Python API to the VO standards. You can use it for data
+discovery and data access in the same way as you would use VO clients
+like Topcat or Aladin. But you can also use it embedded in your own
+code, so that you may access data remotely from an automated script. We
+will show with three simple (and one not so simple) scripts how you can
+use PyVO in the multimessenger context. 
+
+\tutstep[Example 1: PyVO and TAP]
+
+Have a brief look at the few lines in example1.py. Note, that two lines
+are necessary to supress warnings -- services and clients often are a
+bit off, especially in regard of recent standards. They still work, but
+warnings will be raised. We don't want to pretend that everything in the
+VO is perfect, but within a tutorial, warnings might be confusing. If
+you are curious what's going on, simply comment the according lines and
+run the script. 
+The script performs a very simple query on the GAVO obscore service.
+Have a look how the service object is built by
+\sql{pyvo.dal.TAPService()}. This is the convention within PyVO:
+\sql{pyvo.dal.SERVICETYPE(parameters)}. 
+The actual search is performed with the service object method
+\sql{search}. This will send the query to the server, and the last line
+saves the resulting VOTABLE into the same folder as the script. 
+
+\tutstep[Example 2: PyVO and SCS]
+
+This example shows analogously the Simple Cone Search from PyVO. The
+service object is built following the convention introduced in the last
+tutorial step, and as you see, we again use the service provided by
+km3net to obtain a list of neutrino events. Here we chose a much smaller
+radius though. We want to keep the following steps fast. Note the last
+lines of the script: we save the result to a local file, but we also use
+SAMP to broadcast the result to topcat. To make this work, you need to
+make sure that topcat is running before you run the script. You will
+find the result as a table in topcat now. 
+
+\SAMP
+
+\tutstep[Example 3: PyVO and Obscore]
+
+Example now is a bit closer to the real world. The script will make use
+of the neutrino data we get from example 2, which we saved locally to
+the hard drive. So we take different steps from here: we load the data
+from the folder exampl2. Note that we have a fallback exception in the
+code, in case something went wrong during the last tutorial step. We
+also introduce a longer TAP query. From the first part of the tutorial
+you are familiar with the TAP-upload already. But here we are comparing
+our local data with a special table on the TAP service: ivoa.obscore. 
+A service providing this table follows a the special standard Obscore,
+which is dedicated to observational data. Each obscore-service provides
+this table with exactly defined columns which enables the users to use
+the same query repeatedly on each obscore-service. Of course there is no
+garantuee that one will receive any results, but it's making Searches
+all across the VO possible, and comparable easy. Here we query the gavo
+dc. only, and sent the results to Topcat. 
+
+\OBSCORE
+
+\tutstep[Topcat, SAMP and Aladin]
+
+Look at the results in Topcat. We will have a list of 50 images. Note:
+it's a table that does not contain the actual images, but urls to the
+images. Topcat can not deal with these links. Therefore, start Aladin,
+then go back to Topcat and use SAMP to sent the data to Aladin. 
+In Aladin you now find this table and can download the fits files to
+your local machine. Hover over the rows to see the coverage of the
+images in relation to the position on the sky you were searching. 
+Scroll a bit left and click on the buttons in the column "Preview" to
+download smaller Versions of the images in Aladin. 
+
+
+
+%\OBSLOCTAP
+%\OBSVISSAP
+
+
+\section {Acknowledgements}
+The Authors thank ESCAPE WP4 "CEVO" for making this contribution to
+ADASS 2020 possible.
+
+Dave Morris works as a Research Software Engineer at the Royal Observatory,
+Edinburgh (ROE)
+
+Hendrik Heinl works as Ingénieur d'études at the Centre de Données
+astronomiques de Strasbourg (CDS)
+
+Markus Demleitner works as postdoc at the Astronomisches
+Rechen-Institut, Universität Heidelberg (ARI)
+
+\section{Standards}
+\begin{description}
+
+\item[]\href{http://www.ivoa.net/documents/REC/ADQL/ADQL-20081030.pdf}{ADQL}
+
+\item[]\href{https://www.ivoa.net/documents/ObsCore/}{Obscore}
+
+\item[]
+\href{https://www.ivoa.net/documents/ObsLocTAP/index.html}{ObsLocTAP}
+
+\item[]
+\href{https://www.ivoa.net/documents/latest/ConeSearch.html}{SCS}
+
+\item[] \href{https://www.ivoa.net/documents/SAMP/}{SAMP}
+
+\item[]\href{http://www.ivoa.net/documents/VOTable/20130920/REC-VOTable-1.3-20130920.html}{VOTable}
+
+
+\end{description}
+
+\section{References}
+
+\begin{description}
+
+\item[]Demleitner, M. \href{http://docs.g-vo.org/adql/html/}{ADQL-Course}
+
+\item[]Demleitner, M., Becker, S.
+\href{https://pyvo.readthedocs.io/en/latest/}{PyVO Documentation}
+
+\item[]Fernique, P.
+\href{http://aladin.u-strasbg.fr/java/AladinManual6.pdf}{Aladin
+Documentation}
+
+\item[]Taylor, M.
+\href{http://www.star.bris.ac.uk/~mbt/topcat/#docs}{TOPCAT Documentation}
+
+\end{description}
+
+
+
+\end{document}

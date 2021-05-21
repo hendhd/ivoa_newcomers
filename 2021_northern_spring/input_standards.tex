@@ -1,0 +1,239 @@
+% The following are the VO standards sometimes explained from into the
+% tutorials. We proved shortcuts for these standard texts here (similar
+% like for the vo tools).
+
+\newcommand{\ADQLSTD}{
+\lstset{style=VO}
+\begin{standardsinfo}{ADQL}
+\s{ADQL} (Astronomical Data Query Language) is a query language
+based on a subset of SQL used to query tabular data in TAP services.
+The \s{ADQL} standard defines a common subset of SQL
+that can be used to access data in all the common relational
+database platforms used in astronomy.
+This enables users to query multiple services
+using the same query without having to worry about the
+specific dialect of the relational database platform
+hosting the data.
+\end{standardsinfo}
+}
+
+\newcommand{\TAPSTD}{
+\lstset{style=VO}
+\begin{standardsinfo}{TAP}
+\s{TAP} (Table Access Protocol)
+defines a standard web service interface
+for querying tabular catalogs.
+The protocol defines how to represent the query parameters
+and the available response formats.
+This enables users to query multiple services
+using the same client software and query
+language.
+\end{standardsinfo}
+}
+
+\newcommand{\REGISTRY}{
+\lstset{style=VO}
+\begin{standardsinfo}{VO Registry}
+The \s{Registry} is the central point for searches for services in the VO.
+VO services identify themselves to the Registry, providing metadata about
+the data they serve and the service protocols they support.
+Thus, the Registry is the entry point for data discovery in the VO.
+\end{standardsinfo}
+}
+
+\newcommand{\UCD}{
+\lstset{style=VO}
+\begin{standardsinfo}{UCDs -- VO semantics}
+\s{UCD}s (Unified Content Descriptors) describe the content of
+table columnms in a machine readable way.
+Thus, the machines ``know'' something about the data and you
+can make use of this in your programs.
+The data type of a column may describe it as a floating point number,
+the units may say it is measured in degrees,
+but the UCD allows us to identify it is a
+\txtit{right ascension position coordinate},
+enabling data processing and display software
+to understand how to use it.
+\end{standardsinfo}
+}
+
+\newcommand{\VOTABLE}{
+\lstset{style=VO}
+\begin{standardsinfo}{VOTABLE}
+\s{VOTable} is the standard data exchange format for tabular data in the VO.
+\url{https://ivoa.net/documents/VOTABLE/}
+The \s{VOTable} standard defines an XML schema
+that combines data types, units,
+UCDs and data model references
+to provide machine readable metadata describing
+each column in the table,
+enabling data processing and display software
+to understand how to use it.
+\end{standardsinfo}
+}
+
+\newcommand{\SAMP}{
+\lstset{style=VO}
+\begin{standardsinfo}{SAMP}
+\s{SAMP} (Simple Application Messaging Protocol)
+\url{https://ivoa.net/documents/SAMP/}
+enables astronomy applications on the same desktop
+or laptop machine to share data with each other.
+It also enables applications to notify each other
+about what data points a user has selected,
+enabling the two applications to coordinate their
+display and selection views.
+\end{standardsinfo}
+}
+
+\newcommand{\SIAP}{
+\lstset{style=VO}
+\begin{standardsinfo}{SIAP}
+\s{SIAP}SIAP  (Simple Image Access Protocol)
+\url{https://ivoa.net/documents/SIA/}
+defines a standard web service interface
+for finding and accessing images
+in the vO.
+The protocol defines the query parameters
+the service understands and the format of the response.
+This enables users to query multiple services
+using the same criteria.
+Each service returns a machine readable VOTable document
+listing the
+available images
+that match the search criteria
+and describes how to access them.
+\end{standardsinfo}
+}
+
+\newcommand{\SSAP}{
+\lstset{style=VO}
+\begin{standardsinfo}{SSAP}
+\s{SSAP} (Simple Spectra Access Protocol)
+\url{https://ivoa.net/documents/SSA/}
+defines a standard web service interface
+for finding and accessing spectral
+data in the vO.
+The protocol defines the query parameters
+the service understands and the format of the response.
+This enables users to query multiple services
+using the same criteria.
+Each service returns a machine readable VOTable document
+listing the
+available spectra
+that match the search criteria
+and describes how to access them.
+\end{standardsinfo}
+}
+
+\newcommand{\OBSLOCTAP}{
+\lstset{style=VO}
+\begin{standardsinfo}{ObsLocTAP}
+\s{ObsLocTAP} (Observation Locator Table Access Protocol)
+\url{https://ivoa.net/documents/ObsLocTAP/}
+defines a standard data model for querying
+observation scheduling information
+for an instrument.
+The protocol defines the query parameters
+the service understands and the format of the response.
+This enables users to query multiple services
+using the same criteria.
+Each service returns a machine readable VOTable document
+listing the
+planned or completed observations
+that match the search criteria.
+\end{standardsinfo}
+}
+
+\newcommand{\OBSVISSAP}{
+\lstset{style=VO}
+\begin{standardsinfo}{ObjVisSAP}
+\s{ObjVisSAP} (Object Visibility Simple Access Protocol)
+\url{https://ivoa.net/documents/ObjVisSAP/}
+defines a standard web service interface
+for discovering visibility time intervals
+for an instrument.
+The protocol defines the query parameters
+the service understands and the format of the response.
+This enables users to query multiple services
+using the same criteria.
+Each service returns a machine readable VOTable document
+listing the
+visibility time intervals
+that match the search criteria.
+\end{standardsinfo}
+}
+
+\newcommand{\OBSCORE}{
+\lstset{style=VO}
+\begin{standardsinfo}{ObsCore}
+\s{ObsCore}
+\url{https://ivoa.net/documents/ObsCore/}
+Is a common data model for describing astronomical observations.
+It defines the core components of metadata needed to discover what observational data is available from a service.
+Every service that advertises itself as an \s{ObsTAP} service must provide this standard view of
+metadata lsiting the observational data available from that service..
+This means that a user can build an \s{ADQL} query based on the \s{ObsCore} data table
+and apply the same query to all the \s{ObsTAP} services.
+\end{standardsinfo}
+}
+
+\newcommand{\SCS}{
+\lstset{style=VO}
+\begin{standardsinfo}{SCS}
+\s{SCS} (Simple Cone Search)
+\url{https://ivoa.net/documents/cover/ConeSearch-20060908.html}
+defines a standard web service interface
+for requesting data based on a cone projected on the sky
+described by a sky position and an angular distance.
+The protocol defines the query parameters
+the service understands and the format of the response.
+This enables users to query multiple services
+using the same criteria.
+Each service returns a machine readable VOTable document
+listing the astronomical sources or objects which are
+within the search criteria.
+\end{standardsinfo}
+}
+
+\newcommand{\DataLink}{
+\lstset{style=VO}
+\begin{standardsinfo}{Datalink}
+\s{Datalink} Datalink
+\end{standardsinfo}
+}
+
+
+
+
+
+
+
+
+\newcommand{\WG_REGISTRY}{
+\lstset{style=VO}
+\begin{standardsinfo}{REGISTRY}
+\s{Registry} Registry
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaResReg}
+\end{standardsinfo}
+}
+
+\newcommand{\WG_SEMENTICS}{
+\lstset{style=VO}
+\begin{standardsinfo}{SEMANTICS}
+\s{Semantics WG} Semantics WG
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaSemantics}
+\end{standardsinfo}
+}
+
+
+
+%\newcommand{}{
+%\lstset{style=VO}
+%\begin{standardsinfo}{}
+%\s{}
+%
+%
+%\end{standardsinfo}
+%}
+
