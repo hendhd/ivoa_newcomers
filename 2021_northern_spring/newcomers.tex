@@ -181,10 +181,10 @@ ADQL query appearing in the field:
 SELECT
    TOP 1000
    *
-   FROM sdssdr7.sources AS db
-   JOIN TAP_UPLOAD.t1 AS tc
-   ON 1=CONTAINS(POINT('ICRS', db.ra, db.dec),
-                 CIRCLE('ICRS', tc.ra, tc.decl, 5./3600.))
+   FROM sdssdr7.sources AS sdss
+   JOIN TAP_UPLOAD.t1 AS antares
+   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
+                 CIRCLE('ICRS', antares.ra, antares.decl, 5./3600.))
 \end{lstlisting}
 
 Now at the first glance that may look confusing, so let's go through it
@@ -196,15 +196,19 @@ whole query.
 With \sql{*} we select all columns of matching data records. Here will
 will modify the query, because we are not interested in all of the
 columns of SDSS. Instead of \sql{*} we will write: 
-\sql{tc.*, db.objid, db.ra, db.dec, db.u, db.g, db.r, db.i, db.z}. This
-means we want to keep all columns from our local table (which is called
-tc) and add the columns from the remote table (which is called db). 
-\sql{FROM sdss.sources} specifies the table of the TAP service we
-want to query. 
+\sql{antares.*, sdss.objid, sdss.ra, sdss.dec, sdss.u, sdss.g, sdss.r, sdss.i, sdss.z}. This
+means we want to keep all columns from our local table (which we have called
+\sql{antares}) and add the columns from the remote table (which we have called \sql{sdss}). 
+The phrase \sql{FROM sdssdr7.sources AS sdss} specifies the table of the TAP service we
+want to query \sql{sdssdr7.sources} and the short name we want to use for it \sql{sdss}. 
 The next lines are the query conditions. In our example we use the ADQL
-built in functions that defines the upload join. This means we define a
-circle around every object from our local table, and the database sell
-check if any data set of the sdss table lies within any of these
+built in functions that defines the upload join.
+The first part \sql{JOIN TAP_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with
+data in the table of neutrinos from Antares that we uploaded alonfg with the query,
+and a short name we want to use for it.
+Then we describe the criteria for joining the data by defining a
+circle around each object in our table of Antares neutrinos, and asking the database to
+check if any sources in the SDSS table lies within any of these
 circles. 
 A little confusing may be the \sql{1=CONTAINS}. This is due to the boolean
 result returned by the function \sql{CONTAINS}. A result of \sql{1}
