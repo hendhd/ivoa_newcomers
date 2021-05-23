@@ -259,7 +259,7 @@ With the colors of SDSS we could now analyze the neutrino sources and do
 more reasonable science. 
 
 
-\tutstep[Topcat, Aladin and Datalink]
+\tutstep[Getting a Table with DataLink]
 
 Interoperability of course is not limited to clients speaking to
 servers. Some of the standards are designed to enable communcation
@@ -267,7 +267,8 @@ between client software. One of these standards is Datalink. Some
 services and clients can already consume datalink. Luckily, the GAVO
 service, Topcat and Aladin are capable of this. So at this point make
 sure that Topcat and Aladin are running. Then go to the Topcat TAP
-window, select the GAVO service and run the following query:
+window, select the GAVO service and run the following query to obtain a
+datset containing DataLinks:
 
 
 \begin{lstlisting}
@@ -294,16 +295,51 @@ limit the filesize. Again, click on \menu{Run Query}. It will take a few
 seconds until the data is available. 
 Then go Topcat's main window, click on \menu{Views}\goto
 \menu{Activation Actions}. A new window will open. On the left side
-click on \menu{Invoke Service} and check the box next to it. 
-
-
-
-
-
-
-
-
+click on \menu{Invoke Service} and check the box next to it. See if in
+the main window as \key{Action} \entry{View DataLink Table} is selected.
+Now Topcat is prepared to interprete the DataLink block of the VOTable.
+Click on the flash-button below to ''Invoke Action on first row''.
 \DATALINK
+
+\tutstep[Using DataLink]
+
+A new window will open and show you the DataLink Table. Here you find
+four rows: \entry{#auxiliary},  \entry{#proc},  \entry{#this}, and
+\entry{#preview}. 
+If you scroll through these four entries, you notice, that  \entry{#auxiliary}, \entry{#this}, and
+\entry{#preview} contain links to fits file, and a possible \key{Action}
+is \entry{View image internally}. With this, you can open a small
+window in Topcat that will either show you a 1/4 scaled image, the whole
+dataset, or a small cutout of the image. 
+\entry{#proc} is different, though. This one let's you use the SODA
+standard to make your own cutout of the image. Since we actually don't
+know much about it, we won't go down this road. Instead, let's use a
+proper image analysis software to have a look at the images: Aladin.
+Mark \entry{#auxiliary} and in the drop down menu at the buttom of the
+window selec at \key{Type:} \entry{FITS_Image} and next to it at
+\key{Action} \entry{Send FITS Image}. Then switch to Aladin and see how
+the image is loaded. You can open the Topcat Data Display and select a
+different row of our table, and then repeat the step of sending the
+FITS-image to Aladin. Note that whenever you hover over the ''SAMP''
+planes in Aladin, how it will compute the covered area of the image and
+display it in the main window. If your screen is big enough, you can
+easily display Topcat and Aladin on the same screen and switch between
+the too. 
+
+\begin{exercise}
+If you are interested in more interoperability, send the table we
+obtained in the earlier tutorial step to Aladin via SAMP and see where
+the sources of our neutrinos are in the images. We don't claim that you
+actually see the neutrino sources in the images. But if you do, let us
+know, because it would be multi messenger astronomy!  
+\end{exercise}
+
+\begin{exercise}
+If you feel ready to get into the depths of the VO: save the Table of
+this last tutorial step to a VO-Table and look at it in your favourite
+text editor. Can you figure out which bit is defining the DataLink
+functionality ? 
+\end{exercise}
 
 
 \section{PyVO and ObsTAP}
