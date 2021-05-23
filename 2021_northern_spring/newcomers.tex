@@ -211,7 +211,7 @@ The phrase \sql{FROM sdssdr7.sources AS sdss} specifies the table of the TAP ser
 want to query \sql{sdssdr7.sources} and the short name we want to use for it \sql{sdss}. 
 The next lines are the query conditions. In our example we use the ADQL
 built in functions that defines the upload join.
-The first part \sql{JOIN TAP_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with 
+The first part \sql{JOIN TAP\_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with 
 data in the table of neutrinos from Antares that we uploaded alonfg with the query,
 and a short name we want to use for it.
 Then we describe the criteria for joining the data by defining a
