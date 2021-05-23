@@ -3,7 +3,7 @@
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}
-\usepackage[escape]{votutorial}
+\usepackage[ivoa-escape]{votutorial}
 
 \lstset{style=daiquiri, language=SQL}
 
@@ -45,7 +45,7 @@ an introduction to the VO.
 This tutorial is presented at the newcomers session for the IVOA
 Interoperability meeting in May 2021\end{abstract}
 
-\usedsoftware{\Topcat\ V4.7, \Aladin\ V11.0}
+\usedsoftware{\Topcat\ V4.8, \Aladin\ V11.0}
 
 \section{Starting out}
 We will use the VO tools TOPCAT and Aladin. These client
@@ -108,8 +108,8 @@ service protocols (SIA, TAP, SSAP) work similar.
 For our example, we select the service provided by km3net by marking the
 service by the title \key{ANTARES 2007-2017}. We will get a bunch of
 neutrino events to use in the next steps.  In \key{Cone parameters}
-for \key{RA} enter \entry{43}, for \key{Dec} enter \entry{35} and and give
-a \key{Radius} of \entry{20} degrees. Then click on \menu{OK}. Within
+for \key{RA} enter \entry{70}, for \key{Dec} enter \entry{25} and and give
+a \key{Radius} of \entry{30} degrees. Then click on \menu{OK}. Within
 seconds the data will be loaded into Topcat and you see the table appear
 in the main window of Topcat.
 
@@ -255,15 +255,22 @@ default command is \sql{INNER JOIN}. Play around with these options,
 they might become usefull in future. 
 \end{exercise}
 
+With the colors of SDSS we could now analyze the neutrino sources and do
+more reasonable science. 
+
+
 \tutstep[Topcat, Aladin and Datalink]
 
 Interoperability of course is not limited to clients speaking to
 servers. Some of the standards are designed to enable communcation
-between client software. One of these standards is Datalink. 
+between client software. One of these standards is Datalink. Some
+services and clients can already consume datalink. Luckily, the GAVO
+service, Topcat and Aladin are capable of this. So at this point make
+sure that Topcat and Aladin are running. Then go to the Topcat TAP
+window, select the GAVO service and run the following query:
 
 
 \begin{lstlisting}
-
 SELECT
    TOP 10000
    *
@@ -271,11 +278,29 @@ SELECT
    JOIN TAP_UPLOAD.t1 AS antares
    ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
                  CIRCLE('ICRS', antares.RA, antares.Decl, 5./3600.))
-JOIN lsw.plates as plates
-ON 1=CONTAINS(POINT('ICRS', plates.centeralpha, plates.centerdelta),
+   JOIN lsw.plates as plates
+   ON 1=CONTAINS(POINT('ICRS', plates.centeralpha, plates.centerdelta),
                  CIRCLE('ICRS', antares.RA, antares.Decl, 1.))
-AND plates.accsize<200000000
+   AND plates.accsize<200000000
 \end{lstlisting}
+
+Note that we added another \sql{JOIN ON} with a geometry defined by the
+antares data, but also on the remote table lsw.plates. Here we want to
+get some information about scanned plates from the ``Landessternwarte
+Heidelberg´´. The snippet \sql{AND plates.accsize<200000000} is added
+because some of the FITs files exceed 1 GB of data volume, which would
+take quite some time to download. So for the sake of the tutorial, we
+limit the filesize. Again, click on \menu{Run Query}. It will take a few
+seconds until the data is available. 
+Then go Topcat's main window, click on \menu{Views}\goto
+\menu{Activation Actions}. A new window will open. On the left side
+click on \menu{Invoke Service} and check the box next to it. 
+
+
+
+
+
+
 
 
 \DATALINK
