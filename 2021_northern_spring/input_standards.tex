@@ -2,6 +2,14 @@
 % tutorials. We proved shortcuts for these standard texts here (similar
 % like for the vo tools).
 
+\newenvironment{WGinfo}[1]{ % Infos on IVOA Working Groups, IGs and commitees.
+	% use \s{} to highlight individual WGs.
+  \def\s##1{{\color{VOkey}##1}}
+  
+{\subsubsection*{\color{VOnum}#1}}
+}
+
+
 \newcommand{\ADQLSTD}{
 \lstset{style=VO}
 \begin{standardsinfo}{ADQL}
@@ -31,7 +39,7 @@ language.
 \end{standardsinfo}
 }
 
-\newcommand{\REGISTRY}{
+\newcommand{\REGISTRYSTD}{
 \lstset{style=VO}
 \begin{standardsinfo}{VO Registry}
 The \s{Registry} is the central point for searches for services in the VO.
@@ -51,7 +59,7 @@ can make use of this in your programs.
 The data type of a column may describe it as a floating point number,
 the units may say it is measured in degrees,
 but the UCD allows us to identify it is a
-\txtit{right ascension position coordinate},
+\textit{right ascension position coordinate},
 enabling data processing and display software
 to understand how to use it.
 \end{standardsinfo}
@@ -61,7 +69,6 @@ to understand how to use it.
 \lstset{style=VO}
 \begin{standardsinfo}{VOTABLE}
 \s{VOTable} is the standard data exchange format for tabular data in the VO.
-\url{https://ivoa.net/documents/VOTABLE/}
 The \s{VOTable} standard defines an XML schema
 that combines data types, units,
 UCDs and data model references
@@ -76,7 +83,6 @@ to understand how to use it.
 \lstset{style=VO}
 \begin{standardsinfo}{SAMP}
 \s{SAMP} (Simple Application Messaging Protocol)
-\url{https://ivoa.net/documents/SAMP/}
 enables astronomy applications on the same desktop
 or laptop machine to share data with each other.
 It also enables applications to notify each other
@@ -90,7 +96,6 @@ display and selection views.
 \lstset{style=VO}
 \begin{standardsinfo}{SIAP}
 \s{SIAP}SIAP  (Simple Image Access Protocol)
-\url{https://ivoa.net/documents/SIA/}
 defines a standard web service interface
 for finding and accessing images
 in the vO.
@@ -110,7 +115,6 @@ and describes how to access them.
 \lstset{style=VO}
 \begin{standardsinfo}{SSAP}
 \s{SSAP} (Simple Spectra Access Protocol)
-\url{https://ivoa.net/documents/SSA/}
 defines a standard web service interface
 for finding and accessing spectral
 data in the vO.
@@ -130,7 +134,6 @@ and describes how to access them.
 \lstset{style=VO}
 \begin{standardsinfo}{ObsLocTAP}
 \s{ObsLocTAP} (Observation Locator Table Access Protocol)
-\url{https://ivoa.net/documents/ObsLocTAP/}
 defines a standard data model for querying
 observation scheduling information
 for an instrument.
@@ -149,7 +152,6 @@ that match the search criteria.
 \lstset{style=VO}
 \begin{standardsinfo}{ObjVisSAP}
 \s{ObjVisSAP} (Object Visibility Simple Access Protocol)
-\url{https://ivoa.net/documents/ObjVisSAP/}
 defines a standard web service interface
 for discovering visibility time intervals
 for an instrument.
@@ -168,7 +170,6 @@ that match the search criteria.
 \lstset{style=VO}
 \begin{standardsinfo}{ObsCore}
 \s{ObsCore}
-\url{https://ivoa.net/documents/ObsCore/}
 Is a common data model for describing astronomical observations.
 It defines the core components of metadata needed to discover what observational data is available from a service.
 Every service that advertises itself as an \s{ObsTAP} service must provide this standard view of
@@ -182,7 +183,6 @@ and apply the same query to all the \s{ObsTAP} services.
 \lstset{style=VO}
 \begin{standardsinfo}{SCS}
 \s{SCS} (Simple Cone Search)
-\url{https://ivoa.net/documents/cover/ConeSearch-20060908.html}
 defines a standard web service interface
 for requesting data based on a cone projected on the sky
 described by a sky position and an angular distance.
@@ -196,36 +196,175 @@ within the search criteria.
 \end{standardsinfo}
 }
 
-\newcommand{\DataLink}{
+\newcommand{\DALI}{
 \lstset{style=VO}
-\begin{standardsinfo}{Datalink}
-\s{Datalink} Datalink
+\begin{standardsinfo}{DALI}
+\s{DALI} DALI
 \end{standardsinfo}
 }
 
 
 
 
+% Working Groups
 
 
-
-
-\newcommand{\WG_REGISTRY}{
+\newcommand{\APPS}{
 \lstset{style=VO}
-\begin{standardsinfo}{REGISTRY}
-\s{Registry} Registry
+\begin{WGinfo}{Application WG}
+As the title \s{Applications WG 1} implies, the focus of this WG is on
+the perspective on the VO from the view of an application
+developer. Thus, the Sessions include discussions and exchange
+of VO standards implementation, but also new demands to these
+standards deriving from the use of applications. The application WG
+could be linked to any standard or protocol an application might speak
+or consume, so the involvement is everywhere in the VO. You will find
+further information here: \\
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaApplications}
+\end{WGinfo}
+}
+
+\newcommand{\DAL}{
+\lstset{style=VO}
+\begin{WGinfo}{Data Access Layer WG}
+The \s{Data Access Layer WG} is tasked with the definition and
+formalizatio of standards for remote data access. As such, the
+WG is in charge of standards like SCS, SIAP, TAP/ADQL and
+others. A more detailed description can be found here: \\
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaDAL}
+\end{WGinfo}
+}
+
+\newcommand{\DATAMODEL}{
+\lstset{style=VO}
+\begin{WGinfo}{Data Model WG}
+\s{Data Model} Data Model
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaDataModel}
+\end{WGinfo}
+}
+
+\newcommand{\GWS}{
+\lstset{style=VO}
+\begin{WGinfo}{Grid and Web Services WG}
+\s{GWS} Grid and Web Services 
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaGridAndWebServices}
+\end{WGinfo}
+}
+
+\newcommand{\REGISTRY}{
+\lstset{style=VO}
+\begin{WGinfo}{Resource Registry WG}
+\s{Resource Registry WG} Resource Registry WG
 \url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaResReg}
-\end{standardsinfo}
+\end{WGinfo}
 }
 
-\newcommand{\WG_SEMENTICS}{
+\newcommand{\SEMANTICS}{
 \lstset{style=VO}
-\begin{standardsinfo}{SEMANTICS}
+\begin{WGinfo}{Semantics WG}
 \s{Semantics WG} Semantics WG
 \url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaSemantics}
-\end{standardsinfo}
+\end{WGinfo}
 }
 
+
+% Interest Groups
+\newcommand{\DCP}{
+\lstset{style=VO}
+\begin{WGinfo}{Data Curation and Preservation IG}DCP 
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaDCP}
+\end{WGinfo}
+}
+
+\newcommand{\EDU}{
+\lstset{style=VO}
+\begin{WGinfo}{Education IG}Edu 
+\url{ https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaEducation }
+\end{WGinfo}
+}
+
+\newcommand{\KDD}{
+\lstset{style=VO}
+\begin{WGinfo}{Knowledge Discovery IG }KDD
+\url{ https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaKDD }
+\end{WGinfo}
+}
+
+\newcommand{\OPERATIONS}{
+\lstset{style=VO}
+\begin{WGinfo}{Operations IG} Operations
+\url{ https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaOps }
+\end{WGinfo}
+}
+
+\newcommand{\SOLAR}{
+\lstset{style=VO}
+\begin{WGinfo}{Solar System IG} Solar Systems
+\url{ https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaSS }
+\end{WGinfo}
+}
+
+
+
+\newcommand{\THEORY}{
+\lstset{style=VO}
+\begin{WGinfo}{Theory IG} Solar Systems
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaTheory }
+\end{WGinfo}
+}
+
+\newcommand{\TIMEDOMAIN}{
+\lstset{style=VO}
+\begin{WGinfo}{Time Domain IG}
+\s{Time Domain IG} Time Domain IG
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaVOEvent}
+\end{WGinfo}
+}
+
+\newcommand{\RADIO}{
+\lstset{style=VO}
+\begin{WGinfo}{Radio astronomy IG}
+\s{Radio astronomy IG} Radio astro IG
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaRadio }
+\end{WGinfo}
+}
+
+
+
+% Exec, TCG SCSP, SCSP
+\newcommand{\EXEC}{
+\lstset{style=VO}
+\begin{WGinfo}{Exec}
+\s{IVOA Executive} Exec
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaRepMin}
+\end{WGinfo}
+}
+
+\newcommand{\TCG}{
+\lstset{style=VO}
+\begin{WGinfo}{TCG}
+\s{IVOA Technical Coordination Group} TCG
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaTCG}
+\end{WGinfo}
+}
+
+\newcommand{\CSP}{
+\lstset{style=VO}
+\begin{WGinfo}{CSP}
+\s{IVOA Standing Committee on Science Priorities} CSP
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaSciencePriorities}
+\end{WGinfo}
+}
+
+\newcommand{\SCSP}{
+\lstset{style=VO}
+\begin{WGinfo}{TCG}
+\s{ Standing Committee on Standards and Processes } SCSP
+\url{https://wiki.ivoa.net/twiki/bin/view/IVOA/IvoaSciencePriorities}
+\end{WGinfo}
+}
+
+% https://wiki.ivoa.net/twiki/bin/view/IVOA/VOGlossary
 
 
 %\newcommand{}{
