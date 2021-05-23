@@ -27,16 +27,20 @@ distributed services not only demands a specific set of skills from
 readable (machine "learnable") interfaces and standards are necessary to
 combine data from different sources, instruments and messengers. The
 IVOA defines such standards and protocols and introduces them to the
-community. At the same time, the ESCAPE project links partners from
-different instruments with the european VO community to enable a FAIR
-access to the data.
+community. 
 
-Here we want to show which data already is available and at the same time want
-to introduce to the recent standards that enable you access data using
-pyVO, the Python API to the Virtual Observatory.
+The process of the development of standards and their evolution is an
+ongoing task. At two Interoperability meetings (or ''Interops'') per
+year, the IVOA members assemble. These meetings are rather a working
+meeting than a conference and understanding the many terms and
+abbreviations used throughout the sessions is quite challenging for a
+newcomer.  
 
-Eventually we want to give a glance on what's in the pipeline in regard
-of new standards.
+This tutorial shall give an introduction to the organisation of the
+IVOA, the working process, and also the terms used. It shall give an
+overview on existing standards, those currently in development and make
+it easier for newcomers to get into the IVOA meeting. It is not meant as
+an introduction to the VO. 
 
 This tutorial is presented at the newcomers session for the IVOA
 Interoperability meeting in May 2021\end{abstract}
@@ -44,7 +48,7 @@ Interoperability meeting in May 2021\end{abstract}
 \usedsoftware{\Topcat\ V4.7, \Aladin\ V11.0}
 
 \section{Starting out}
-We will use the VO tools TOPCAT, Aladin and pyVO. These client
+We will use the VO tools TOPCAT and Aladin. These client
 software can be found here:
 
 Aladin: \url{\linkAladin}
@@ -56,8 +60,7 @@ distribution packages.
 
 A comprehensive collection of the examples in this tutorial as well as
 installation scripts you will find on
-\href{https://github.com/hendhd/hyantis}{github}. Checkout the hyantis
-repository and follow the README instructions. 
+\href{https://github.com/hendhd/ivoa_newcomers/tree/main/2021_northern_spring}{github}. 
 
 \section {TOPCAT, SCS and TAP}
 This tutorial will work along the use case of searching for neutrino
@@ -82,7 +85,7 @@ you with some information of what the data of the service contains. In
 the description you also get information about the different data
 provides.
 
-\REGISTRY
+\REGISTRYSTD
 
 Mark different rows and watch the \key{URL} change in the field below. This meta data is meant to give you an idea of what you can expect from the services and if they are of
 interest for you.
@@ -112,11 +115,16 @@ in the main window of Topcat.
 
 The protocol we used is the Simple Cone Search (SCS).
 
-% Dave talks about SCS 
+% Dave talks about SCS
 
 \SCS
-The table we received from the SCS is a VO-Table, which provides not
-only the actual data, but also some metadata. So let's have a look at
+
+The table we received from the SCS is a VO-Table, which not
+only contains the actual data, but also some metadata.
+
+\VOTABLE
+
+So let's have a look at
 it. We click on \menu{Views}\goto \menu{Column Info}. Here you can get some
 information about the columns. You see that the data provides us with a
 modified Julian Date of when the neutrino event was ovserved. If we
@@ -136,7 +144,7 @@ only the actual data, but also some metadata.
 
 In this step we want to combine our neutrino data with catalogue data
 from SDSS. Catalogue data typically is table data, so we will use the
-Table Access Protocol and the corresponding Query language ADQL to do
+Table Access Protocol and the corresponding query language ADQL to do
 so. There is a lot more to say about TAP and ADQL than we will do here.
 A comprehensive ADQL introduction is linked in the References. 
 
@@ -151,14 +159,14 @@ the TAP Service of Vizier. Many Services providers try to anticipate
 which data combination might be of interest for the users. So it's not
 uncommon to find surveys like 2MASS or SDSS on several services. 
 \TAPSTD
-
+ 
 As for SDSS you see a few options to chose from. We will select the
 \key{GAVO data center} (Note: the reasons here is due to the performance
 of the tutorial: we want query results to come in fast. Real science
-takes time and it is completely acceptable to run queries for hours).
+takes time and it is completely acceptable to run queries for several hours).
 Click on \menu{Use Service} to get to the TAP window of the Service. 
 
-Give it a few moments to load the metadat of the service into the TAP
+Give it a few moments to load the meta data of the service into the TAP
 window. On the left you see a tree of the catalogues and tables on thes
 service, on the right is the metadata browser on these tables. Mark any
 table and see what the description of the table and the columns tell you
@@ -181,10 +189,10 @@ ADQL query appearing in the field:
 SELECT
    TOP 1000
    *
-   FROM sdssdr7.sources AS sdss
-   JOIN TAP_UPLOAD.t1 AS antares
-   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
-                 CIRCLE('ICRS', antares.ra, antares.decl, 5./3600.))
+   FROM sdssdr7.sources AS db
+   JOIN TAP_UPLOAD.t1 AS tc
+   ON 1=CONTAINS(POINT('ICRS', db.ra, db.dec),
+                 CIRCLE('ICRS', tc.ra, tc.decl, 5./3600.))
 \end{lstlisting}
 
 Now at the first glance that may look confusing, so let's go through it
@@ -203,7 +211,7 @@ The phrase \sql{FROM sdssdr7.sources AS sdss} specifies the table of the TAP ser
 want to query \sql{sdssdr7.sources} and the short name we want to use for it \sql{sdss}. 
 The next lines are the query conditions. In our example we use the ADQL
 built in functions that defines the upload join.
-The first part \sql{JOIN TAP_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with
+The first part \sql{JOIN TAP_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with 
 data in the table of neutrinos from Antares that we uploaded alonfg with the query,
 and a short name we want to use for it.
 Then we describe the criteria for joining the data by defining a
@@ -225,19 +233,20 @@ this:
 \begin{lstlisting}
 SELECT
    TOP 1000
-   tc.*, db.objid, db.ra, db.dec, db.u, db.g, db.r, db.i, db.z
-   FROM sdssdr7.sources AS db
-   JOIN TAP_UPLOAD.t1 AS tc
-   ON 1=CONTAINS(POINT('ICRS', db.ra, db.dec),
-                 CIRCLE('ICRS', tc.ra, tc.decl, 10./3600.))
+   antares.*, sdss.objid, sdss.ra, sdss.dec, sdss.u, sdss.g, sdss.r, sdss.i, sdss.z
+   FROM sdssdr7.sources AS sdss
+   JOIN TAP_UPLOAD.t1 AS antares
+   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
+                 CIRCLE('ICRS', antares.ra, antares.decl, 10./3600.))
 \end{lstlisting}
+
 
 Click on \menu{Run Query} and the result should come in rather fast.
 Again have a look at the new table. You see that we added a few columns,
 but it seemed that we lost some rows. This is due to the query: the
 database did only return those data records that matched our conditions.
 Not matching records are discarded.
-\ADQLSTD
+\ADQLSTD  
 
 \begin{exercise}
 You can control the ADQL JOIN behaviour by using the alternatives
@@ -327,8 +336,8 @@ download smaller Versions of the images in Aladin.
 
 
 \section {Acknowledgements}
-The Authors thank ESCAPE WP4 "CEVO" for making this contribution to
-ADASS 2020 possible.
+The Authors thank ESCAPE WP4 "CEVO" for making this contribution to the
+2021 May Interop possible. 
 
 Dave Morris works as a Research Software Engineer at the Royal Observatory,
 Edinburgh (ROE)
@@ -336,8 +345,61 @@ Edinburgh (ROE)
 Hendrik Heinl works as Ingénieur d'études at the Centre de Données
 astronomiques de Strasbourg (CDS)
 
-Markus Demleitner works as postdoc at the Astronomisches
-Rechen-Institut, Universität Heidelberg (ARI)
+
+\section{IVOA Entities}
+
+The IVOA is organised in ''Groups of interest and competence'', with
+some groups being in charge of the development and evolution of
+standards (mainly the Working Groups), whereas other groups are focus on
+the practices of data interoperability and the demands of specific
+groups within the astronomical community (e.g. the Radio astronomy IG or
+the Solar System IG). IGs help to identify demands, WGs work out if and how VO
+standards can reply to these demands. 
+
+\subsection*{Working Groups}
+The following WGs are established in the IVOA and are assigned a
+specific focus on the VO standards. Often a standard will touch the
+focus of several WGs. Then a joined session of the WGs will be held at
+the Interop meetings. 
+
+% The following group descriptions are in input_standards.tex
+\APPS 
+\DAL
+\DATAMODEL
+\GWS
+\REGISTRY 
+\SEMANTICS
+
+\subsection*{Interest Groups}
+IGs address a specific topic and often are linked to external
+communities. The Data Curation and Preservation IG has bounds to the
+Research Data Alliance (RDA), whereas IGs like Radio astronomy IG or
+Solar System IG link to specific fields in astronomy. IGs connect the
+IVOA with these different communities and enable outreach, but also
+input from these communities. 
+
+\DCP
+\EDU
+\KDD
+\OPERATIONS
+\RADIO
+\SOLAR
+\THEORY
+\TIMEDOMAIN
+
+
+\subsection*{Other Groups and Committees}
+Eventually there are formal and organisational groups where decisions
+are prepared and formalized. 
+
+\EXEC
+\TCG
+\CSP
+\SCSP
+
+
+ 
+
 
 \section{Standards}
 \begin{description}
