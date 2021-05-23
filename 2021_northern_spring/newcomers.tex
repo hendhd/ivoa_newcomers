@@ -159,7 +159,7 @@ the TAP Service of Vizier. Many Services providers try to anticipate
 which data combination might be of interest for the users. So it's not
 uncommon to find surveys like 2MASS or SDSS on several services. 
 \TAPSTD
- 
+
 As for SDSS you see a few options to chose from. We will select the
 \key{GAVO data center} (Note: the reasons here is due to the performance
 of the tutorial: we want query results to come in fast. Real science
@@ -255,6 +255,30 @@ default command is \sql{INNER JOIN}. Play around with these options,
 they might become usefull in future. 
 \end{exercise}
 
+\tutstep[Topcat, Aladin and Datalink]
+
+Interoperability of course is not limited to clients speaking to
+servers. Some of the standards are designed to enable communcation
+between client software. One of these standards is Datalink. 
+
+
+\begin{lstlisting}
+
+SELECT
+   TOP 10000
+   *
+   FROM sdssdr7.sources AS sdss
+   JOIN TAP_UPLOAD.t1 AS antares
+   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
+                 CIRCLE('ICRS', antares.RA, antares.Decl, 5./3600.))
+JOIN lsw.plates as plates
+ON 1=CONTAINS(POINT('ICRS', plates.centeralpha, plates.centerdelta),
+                 CIRCLE('ICRS', antares.RA, antares.Decl, 1.))
+AND plates.accsize<200000000
+\end{lstlisting}
+
+
+\DATALINK
 
 
 \section{PyVO and ObsTAP}
@@ -404,6 +428,8 @@ are prepared and formalized.
 \section{Standards}
 \begin{description}
 
+\item[]{https://www.ivoa.net/documents/DataLink/20150617/index.html}{Datalink}
+
 \item[]\href{http://www.ivoa.net/documents/REC/ADQL/ADQL-20081030.pdf}{ADQL}
 
 \item[]\href{https://www.ivoa.net/documents/ObsCore/}{Obscore}
@@ -415,6 +441,8 @@ are prepared and formalized.
 \href{https://www.ivoa.net/documents/latest/ConeSearch.html}{SCS}
 
 \item[] \href{https://www.ivoa.net/documents/SAMP/}{SAMP}
+
+\item[]{https://www.ivoa.net/documents/cover/UCD-20050812.html}{UCD}
 
 \item[]\href{http://www.ivoa.net/documents/VOTable/20130920/REC-VOTable-1.3-20130920.html}{VOTable}
 
