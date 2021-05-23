@@ -108,7 +108,7 @@ service protocols (SIA, TAP, SSAP) work similar.
 For our example, we select the service provided by km3net by marking the
 service by the title \key{ANTARES 2007-2017}. We will get a bunch of
 neutrino events to use in the next steps.  In \key{Cone parameters}
-for \key{RA} enter \entry{70}, for \key{Dec} enter \entry{25} and and give
+for \key{RA} enter \entry{170}, for \key{Dec} enter \entry{25} and and give
 a \key{Radius} of \entry{30} degrees. Then click on \menu{OK}. Within
 seconds the data will be loaded into Topcat and you see the table appear
 in the main window of Topcat.
@@ -261,10 +261,10 @@ more reasonable science.
 
 \tutstep[Getting a Table with DataLink]
 
-Interoperability of course is not limited to clients speaking to
-servers. Some of the standards are designed to enable communcation
-between client software. One of these standards is Datalink. Some
-services and clients can already consume datalink. Luckily, the GAVO
+Once you have a certain level of interoperability, you can go on and add
+more functionality and interactivity between clients, servers or in
+between clients. One of the standards developed for this is Datalink. Some
+services and clients can already consume datalinks. Luckily, the GAVO
 service, Topcat and Aladin are capable of this. So at this point make
 sure that Topcat and Aladin are running. Then go to the Topcat TAP
 window, select the GAVO service and run the following query to obtain a
@@ -304,19 +304,20 @@ Click on the flash-button below to ''Invoke Action on first row''.
 \tutstep[Using DataLink]
 
 A new window will open and show you the DataLink Table. Here you find
-four rows: \entry{#auxiliary},  \entry{#proc},  \entry{#this}, and
-\entry{#preview}. 
-If you scroll through these four entries, you notice, that  \entry{#auxiliary}, \entry{#this}, and
-\entry{#preview} contain links to fits file, and a possible \key{Action}
+four rows: \entry{\#auxiliary},  \entry{\#proc},  \entry{\#this}, and
+\entry{\#preview}. 
+If you scroll through these four entries, you notice, that  \entry{\#auxiliary}, 
+\entry{\#this}, and
+\entry{\#preview} contain links to fits file, and a possible \key{Action}
 is \entry{View image internally}. With this, you can open a small
 window in Topcat that will either show you a 1/4 scaled image, the whole
-dataset, or a small cutout of the image. 
-\entry{#proc} is different, though. This one let's you use the SODA
+dataset, or a small cutout of the image.
+\entry{\#proc} is different, though. This one let's you use the SODA
 standard to make your own cutout of the image. Since we actually don't
 know much about it, we won't go down this road. Instead, let's use a
 proper image analysis software to have a look at the images: Aladin.
-Mark \entry{#auxiliary} and in the drop down menu at the buttom of the
-window selec at \key{Type:} \entry{FITS_Image} and next to it at
+Mark \entry{\#auxiliary} and in the drop down menu at the buttom of the
+window selec at \key{Type:} \entry{FITS\_Image} and next to it at
 \key{Action} \entry{Send FITS Image}. Then switch to Aladin and see how
 the image is loaded. You can open the Topcat Data Display and select a
 different row of our table, and then repeat the step of sending the
@@ -331,9 +332,11 @@ If you are interested in more interoperability, send the table we
 obtained in the earlier tutorial step to Aladin via SAMP and see where
 the sources of our neutrinos are in the images. We don't claim that you
 actually see the neutrino sources in the images. But if you do, let us
-know, because it would be multi messenger astronomy!  
+know, because it would be multi messenger astronomy!
+Select data points in Aladin and watch how they are highlighted in
+Topcat. 
 \end{exercise}
-
+ 
 \begin{exercise}
 If you feel ready to get into the depths of the VO: save the Table of
 this last tutorial step to a VO-Table and look at it in your favourite
@@ -414,14 +417,12 @@ images in relation to the position on the sky you were searching.
 Scroll a bit left and click on the buttons in the column "Preview" to
 download smaller Versions of the images in Aladin. 
 
-
-
 %\OBSLOCTAP
 %\OBSVISSAP
 
 
 \section {Acknowledgements}
-The Authors thank ESCAPE WP4 "CEVO" for making this contribution to the
+The Authors thank ESCAPE for making this contribution to the
 2021 May Interop possible. 
 
 Dave Morris works as a Research Software Engineer at the Royal Observatory,
@@ -489,7 +490,7 @@ are prepared and formalized.
 \section{Standards}
 \begin{description}
 
-\item[]{https://www.ivoa.net/documents/DataLink/20150617/index.html}{Datalink}
+\item[]\href{https://www.ivoa.net/documents/DataLink/20150617/index.html}{Datalink}
 
 \item[]\href{http://www.ivoa.net/documents/REC/ADQL/ADQL-20081030.pdf}{ADQL}
 
@@ -514,13 +515,14 @@ are prepared and formalized.
 
 \begin{description}
 
-\item[]Demleitner, M. \href{http://docs.g-vo.org/adql/html/}{ADQL-Course}
+\item[]Demleitner, M.
+\href{http://docs.g-vo.org/adql/html/}{ADQL-Course}
 
 \item[]Demleitner, M., Becker, S.
 \href{https://pyvo.readthedocs.io/en/latest/}{PyVO Documentation}
 
 \item[]Fernique, P.
-\href{http://aladin.u-strasbg.fr/java/AladinManual6.pdf}{Aladin
+\href{https://aladin.u-strasbg.fr/java/AladinManualV10.pdf}{Aladin
 Documentation}
 
 \item[]Taylor, M.
