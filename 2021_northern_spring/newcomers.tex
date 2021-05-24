@@ -137,8 +137,6 @@ information about the columns. You see that the data provides us with a
 modified Julian Date of when the neutrino event was ovserved. If we
 scroll a bit to the right, we see the UCD (Unified Content Descriptors).
 
-\UCD
-
 We can
 plot some of the data with \menu{Graphics}, but so far we wouldn't have
 much more than positions to see. 
@@ -263,7 +261,10 @@ they might become usefull in future.
 \end{exercise}
 
 With the colors of SDSS we could now analyze the neutrino sources and do
-more reasonable science. 
+more reasonable science. Let's have a short look into the meta data 
+
+% Dave talking about UCD
+\CDS
 
 
 \tutstep[Getting a Table with DataLink]
@@ -279,6 +280,7 @@ datset containing DataLinks:
 
 
 \begin{lstlisting}
+
 SELECT
    TOP 10000
    *
@@ -290,6 +292,7 @@ SELECT
    ON 1=CONTAINS(POINT('ICRS', plates.centeralpha, plates.centerdelta),
                  CIRCLE('ICRS', antares.RA, antares.Decl, 1.))
    AND plates.accsize<200000000
+
 \end{lstlisting}
 
 Note that we added another \sql{JOIN ON} with a geometry defined by the
@@ -306,6 +309,7 @@ click on \menu{Invoke Service} and check the box next to it. See if in
 the main window as \key{Action} \entry{View DataLink Table} is selected.
 Now Topcat is prepared to interprete the DataLink block of the VOTable.
 Click on the flash-button below to ''Invoke Action on first row''.
+
 \DATALINK
 
 \tutstep[Using DataLink]
@@ -318,10 +322,8 @@ If you scroll through these four entries, you notice, that  \entry{\#auxiliary},
 \entry{\#preview} contain links to fits file, and a possible \key{Action}
 is \entry{View image internally}. With this, you can open a small
 window in Topcat that will either show you a 1/4 scaled image, the whole
-dataset, or a small cutout of the image.
-\entry{\#proc} is different, though. This one let's you use the SODA
-standard to make your own cutout of the image. Since we actually don't
-know much about the image, we won't go down this road. Instead, let's use a
+dataset, or a small cutout of the image. 
+Let's use a
 proper image analysis software to have a look at the images: Aladin.
 Mark \entry{\#auxiliary} and in the drop down menu at the buttom of the
 window selec at \key{Type:} \entry{FITS\_Image} and next to it at
@@ -332,7 +334,7 @@ FITS-image to Aladin. Note that whenever you hover over the ''SAMP''
 planes in Aladin, how it will compute the covered area of the image and
 display it in the main window. If your screen is big enough, you can
 easily display Topcat and Aladin on the same desktop and switch between
-the too. 
+them. 
 
 \begin{exercise}
 For beginners: If you are interested in more interoperability, send the table we
@@ -353,8 +355,15 @@ functionality ?
 
 \begin{exercise}
 For the VO-pro: See where we mention SODA above ? Try it!
+
+\entry{\#proc} is different, though. This one let's you use the SODA
+standard to make your own cutout of the image. 
+
+
 \end{exercise}
 
+
+%BREAK
 
 \section{PyVO and ObsTAP}
 
@@ -394,6 +403,7 @@ SAMP to broadcast the result to Topcat. To make this work, you need to
 make sure that topcat is running before you run the script. You will
 find the result as a table in Topcat now. 
 
+% Dave intercept
 \SAMP
 
 \tutstep[Example 3: PyVO and Obscore]
