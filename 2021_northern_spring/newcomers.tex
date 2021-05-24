@@ -261,10 +261,21 @@ they might become usefull in future.
 \end{exercise}
 
 With the colors of SDSS we could now analyze the neutrino sources and do
-more reasonable science. Let's have a short look into the meta data 
+more reasonable science. But here we want to talk about the metadata for
+a moment. You remember how we clicked on \menu{Examples} in the
+TAP-Service window of Topcat, and Topcat completed an ADQL query for us.
+Did you notice how Topcat ''knew'' which columns contained the data to
+complete positions ? And Topcat did this for both tables, our local one,
+and the one in the remote service. The secret here lies in the metadata
+that is provided by VO-standards. 
+In Topcat's main window go to \menu{Views}\goto \menu{Column Info}. In
+the new opening window you will find the metadata on the columns, like a
+human readable description, the units of the data, and the Unified
+Content Descriptors (UCD). These are part of the ''magic'' working in the
+background of the VO. 
 
 % Dave talking about UCD
-\CDS
+\UCD
 
 
 \tutstep[Getting a Table with DataLink]
@@ -354,16 +365,14 @@ functionality ?
 \end{exercise}
 
 \begin{exercise}
-For the VO-pro: See where we mention SODA above ? Try it!
-
-\entry{\#proc} is different, though. This one let's you use the SODA
-standard to make your own cutout of the image. 
-
-
+For the VO-pro: You may have noticed that we did not talk about
+\entry{\#proc} above. That is because it's linked to special service
+side implemented features, in this case the SODA standard, which can be
+used to perform a cutout of the FITS images. Play around with it. 
 \end{exercise}
 
 
-%BREAK
+% BREAK
 
 \section{PyVO and ObsTAP}
 
@@ -437,12 +446,25 @@ images in relation to the position on the sky you were searching.
 Scroll a bit left and click on the buttons in the column "Preview" to
 download smaller Versions of the images in Aladin. 
 
-\section{Look into the future}
+\section{Key Standards}
 
-Two standards that are in development right 
+\subsection*{FITS}
 
-\OBSLOCTAP
-\OBSVISSAP
+Though no VO-standard, FITS of course is a well establish data format in
+astronomy, and therefore is widely adapted by the VO and used in many
+client software. Due to the limits in regard of the space of metadata
+e.g. the lack of standardized vocabulary, the demand for a metarich
+standard arose: the VO-Table standard.
+
+\subsection*{VO-Table}
+The centre of most of the VO standards is the VO-Table standard. This is
+the format of choice for data exchange within in the VO. Services will
+serve clients VO-Tables, and clients sent VO-Table via SAMP. Based on
+XML, VO-Tables provide the flexibility, extendability and precision
+needed to annotate data. Throughout many discussions about standards you
+will see XML snippets being presented as a solution for a problem. If
+you read a bit into it, these soon will make a lot of sense for you too. 
+
 
 
 \section {Acknowledgements}
