@@ -1,39 +1,28 @@
-## Welcome to the IVOA newcomer session!
+##Welcome to the IVOA newcomer session!
 
-We encourage 
+We are happy that you join in to our introduction to the IVOA. In the
+following two sessions we want to five you an overview about the VO
+standards, how they are connected, and how they are connected to the
+Working Groups. We hope this will make it easier to get into the work
+flow of the Interop meeting.
 
-You can use the [editor on GitHub](https://github.com/hendhd/ivoa_newcomers/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+##Session 1 
+will introduce to some of the VO standards following a
+multimessenger use case
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+##Session 2 
+will see the implementation of these standards in PyVO and how automatic
+access to data and between client software works. Also, we will show a
+model of the way a standard goes from being a demand to become a
+recommendation. 
 
-### Markdown
+The full material of the sessions is available in the github repository
+linked to this page here. You can access it by following the above link
+under the main header of this page. 
+The main steps will be covered by this
+[https://github.com/hendhd/ivoa_newcomers/blob/main/2021_northern_spring/newcomers.pdf](PDF)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+Again, we welcome you to the IVOA!
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/hendhd/ivoa_newcomers/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
