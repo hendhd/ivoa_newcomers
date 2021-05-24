@@ -31,8 +31,8 @@ community.
 
 The process of the development of standards and their evolution is an
 ongoing task. At two Interoperability meetings (or ''Interops'') per
-year, the IVOA members assemble. These meetings are rather a working
-meeting than a conference and understanding the many terms and
+year, the IVOA members assemble. These meetings are rather working
+meetings than typical conferences and understanding the many terms and
 abbreviations used throughout the sessions is quite challenging for a
 newcomer.  
 
@@ -40,7 +40,7 @@ This tutorial shall give an introduction to the organisation of the
 IVOA, the working process, and also the terms used. It shall give an
 overview on existing standards, those currently in development and make
 it easier for newcomers to get into the IVOA meeting. It is not meant as
-an introduction to the VO. 
+an introduction how to use the mentioned standards and tools.
 
 This tutorial is presented at the newcomers session for the IVOA
 Interoperability meeting in May 2021\end{abstract}
@@ -91,7 +91,7 @@ After a few moments you see the results coming in as a list of services
 providing data related to the keyword. You see that the list provides
 you with some information of what the data of the service contains. In
 the description you also get information about the different data
-provides.
+providers.
 
 \REGISTRYSTD
 
@@ -99,7 +99,7 @@ Mark different rows and watch the \key{URL} change in the field below. This meta
 interest for you.
 
 With this little example you already get an idea of what the VO
-standards and protocols are about: standardize publishing, searching and
+standards and protocols are about: to standardize publishing, searching and
 accessing data and making it reusable. 
 
 % Dave intercept to talk about the registry
@@ -137,7 +137,6 @@ it. We click on \menu{Views}\goto \menu{Column Info}. Here you can get some
 information about the columns. You see that the data provides us with a
 modified Julian Date of when the neutrino event was ovserved. If we
 scroll a bit to the right, we see the UCD (Unified Content Descriptors).
-In charge of UCDs is the Semantics WG. 
 
 \UCD
 
@@ -154,7 +153,7 @@ In this step we want to combine our neutrino data with catalogue data
 from SDSS. Catalogue data typically is table data, so we will use the
 Table Access Protocol and the corresponding query language ADQL to do
 so. There is a lot more to say about TAP and ADQL than we will do here.
-A comprehensive ADQL introduction is linked in the References. 
+A comprehensive ADQL introduction is linked in the references. 
 
 In Topcat go to \menu{VO} \goto\menu{TAP}. The TAP window will open and
 after a few moments you will see a list of services in the window.
@@ -221,7 +220,7 @@ want to query \sql{sdssdr7.sources} and the short name we want to use for it \sq
 The next lines are the query conditions. In our example we use the ADQL
 built in functions that defines the upload join.
 The first part \sql{JOIN TAP\_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with 
-data in the table of neutrinos from Antares that we uploaded alonfg with the query,
+data in the table of neutrinos from Antares that we uploaded along with the query,
 and the short name we want to use for it.
 Then we describe the criteria for joining the data by defining a
 circle around each object in our table of Antares neutrinos, and asking the database to
@@ -271,7 +270,7 @@ more reasonable science.
 \tutstep[Getting a Table with DataLink]
 
 Once you have a certain level of interoperability, you can go on and add
-more functionality and interactivity between clients, servers or in
+more functionality and interactivity between clients and servers or in
 between clients. One of the standards developed for this is Datalink. Some
 services and clients can already consume datalinks. Luckily, the GAVO
 service, Topcat and Aladin are capable of this. So at this point make
@@ -323,7 +322,7 @@ window in Topcat that will either show you a 1/4 scaled image, the whole
 dataset, or a small cutout of the image.
 \entry{\#proc} is different, though. This one let's you use the SODA
 standard to make your own cutout of the image. Since we actually don't
-know much about it, we won't go down this road. Instead, let's use a
+know much about the image, we won't go down this road. Instead, let's use a
 proper image analysis software to have a look at the images: Aladin.
 Mark \entry{\#auxiliary} and in the drop down menu at the buttom of the
 window selec at \key{Type:} \entry{FITS\_Image} and next to it at
@@ -333,11 +332,11 @@ different row of our table, and then repeat the step of sending the
 FITS-image to Aladin. Note that whenever you hover over the ''SAMP''
 planes in Aladin, how it will compute the covered area of the image and
 display it in the main window. If your screen is big enough, you can
-easily display Topcat and Aladin on the same screen and switch between
+easily display Topcat and Aladin on the same desktop and switch between
 the too. 
 
 \begin{exercise}
-If you are interested in more interoperability, send the table we
+For beginners: If you are interested in more interoperability, send the table we
 obtained in the earlier tutorial step to Aladin via SAMP and see where
 the sources of our neutrinos are in the images. We don't claim that you
 actually see the neutrino sources in the images. But if you do, let us
@@ -347,10 +346,14 @@ Topcat.
 \end{exercise}
  
 \begin{exercise}
-If you feel ready to get into the depths of the VO: save the Table of
+For advanced: If you feel ready to get into the depths of the VO: save the Table of
 this last tutorial step to a VO-Table and look at it in your favourite
 text editor. Can you figure out which bit is defining the DataLink
 functionality ? 
+\end{exercise}
+
+\begin{exercise}
+For the VO-pro: See where we mention SODA above ? Try it!
 \end{exercise}
 
 
@@ -388,29 +391,28 @@ tutorial step, and as you see, we again use the service provided by
 km3net to obtain a list of neutrino events. Here we chose a much smaller
 radius though. We want to keep the following steps fast. Note the last
 lines of the script: we save the result to a local file, but we also use
-SAMP to broadcast the result to topcat. To make this work, you need to
+SAMP to broadcast the result to Topcat. To make this work, you need to
 make sure that topcat is running before you run the script. You will
-find the result as a table in topcat now. 
+find the result as a table in Topcat now. 
 
 \SAMP
 
 \tutstep[Example 3: PyVO and Obscore]
 
-Example now is a bit closer to the real world. The script will make use
-of the neutrino data we get from example 2, which we saved locally to
-the hard drive. So we take different steps from here: we load the data
-from the folder exampl2. Note that we have a fallback exception in the
+This example now is a bit closer to the real world. The script will make use
+of the neutrino data we get from example 2, which we saved locally. So we take different steps from here: we load the data
+from the folder example2. Note that we have a fallback exception in the
 code, in case something went wrong during the last tutorial step. We
 also introduce a longer TAP query. From the first part of the tutorial
 you are familiar with the TAP-upload already. But here we are comparing
 our local data with a special table on the TAP service: ivoa.obscore. 
-A service providing this table follows a the special standard Obscore,
+A service providing this table follows the special standard Obscore,
 which is dedicated to observational data. Each obscore-service provides
 this table with exactly defined columns which enables the users to use
 the same query repeatedly on each obscore-service. Of course there is no
-garantuee that one will receive any results, but it's making Searches
-all across the VO possible, and comparable easy. Here we query the gavo
-dc. only, and sent the results to Topcat. 
+garantuee that one will receive any results, but it's making searches
+all across the VO possible, and pretty easy. Here we query the gavo
+dc. only, and send the results to Topcat. 
 
 \OBSCORE
 
