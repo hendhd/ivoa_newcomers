@@ -205,8 +205,8 @@ With \sql{*} we select all columns of matching data records. Here will
 will modify the query, because we are not interested in all of the
 columns of SDSS. Instead of \sql{*} we will write: 
 \sql{antares.*, sdss.objid, sdss.ra, sdss.dec, sdss.u, sdss.g, sdss.r, sdss.i, sdss.z}. This
-means we want to keep all columns from our local table (which we have called
-\sql{antares}) and add the columns from the remote table (which we have called \sql{sdss}). 
+means we want to keep all columns from our local table (which we have named
+\sql{antares}) and add the columns from the remote table (which we will name \sql{sdss}). 
 The phrase \sql{FROM sdssdr7.sources AS sdss} specifies the table of the TAP service we
 want to query \sql{sdssdr7.sources} and the short name we want to use for it \sql{sdss}. 
 The next lines are the query conditions. In our example we use the ADQL
