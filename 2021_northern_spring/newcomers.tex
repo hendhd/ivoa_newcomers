@@ -206,15 +206,15 @@ With \sql{*} we select all columns of matching data records. Here will
 will modify the query, because we are not interested in all of the
 columns of SDSS. Instead of \sql{*} we will write: 
 \sql{antares.*, sdss.objid, sdss.ra, sdss.dec, sdss.u, sdss.g, sdss.r, sdss.i, sdss.z}. This
-means we want to keep all columns from our local table (which we have called
-\sql{antares}) and add the columns from the remote table (which we have called \sql{sdss}). 
+means we want to keep all columns from our uploaded table (which we will call
+\sql{antares}) and add the columns from the remote table (which we will call \sql{sdss}). 
 The phrase \sql{FROM sdssdr7.sources AS sdss} specifies the table of the TAP service we
 want to query \sql{sdssdr7.sources} and the short name we want to use for it \sql{sdss}. 
 The next lines are the query conditions. In our example we use the ADQL
 built in functions that defines the upload join.
 The first part \sql{JOIN TAP\_UPLOAD.t1 AS antares} specifies that we want to join the data from SDSS with 
 data in the table of neutrinos from Antares that we uploaded alonfg with the query,
-and a short name we want to use for it.
+and the short name we want to use for it.
 Then we describe the criteria for joining the data by defining a
 circle around each object in our table of Antares neutrinos, and asking the database to
 check if any sources in the SDSS table lies within any of these
