@@ -20,7 +20,7 @@ The full material of the sessions is available in the github repository
 linked to this page here. You can access it by following the above link
 under the main header of this page. 
 The main steps will be covered by this
-[PDF](https://github.com/hendhd/ivoa_newcomers/blob/main/2021_northern_spring/newcomers.pdf)
+[PDF](https://github.com/hendhd/ivoa_newcomers/blob/main/IVOA_interop/newcomers.pdf)
 
 Again, we welcome you to the IVOA!
 
