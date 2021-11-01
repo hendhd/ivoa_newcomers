@@ -1,11 +1,14 @@
-#! /usr/bin/ python
+#!/usr/bin/ python3
 # -*- coding=utf-8 -*- 
 
 # A demo program to show how a TAP query in PyVO works. 
 
 import pyvo
+
+import sys
 import warnings
 
+if not sys.warnoptions:
 warnings.simplefilter("ignore")
 
 

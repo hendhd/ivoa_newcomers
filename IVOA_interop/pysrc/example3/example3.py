@@ -1,11 +1,14 @@
-#! /usr/bin/ python
+#!/usr/bin/ python3
 # -*- coding=utf-8 -*- 
 
-from astropy.table import Table
 import pyvo
 
 import sys
 import warnings
+
+from astropy.table import Table
+
+
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")

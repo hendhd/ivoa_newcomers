@@ -1,4 +1,4 @@
-#! /usr/bin/ python
+#!/usr/bin/ python3
 # -*- coding=utf-8 -*- 
 
 # A demo program to show as simple Cone Search
