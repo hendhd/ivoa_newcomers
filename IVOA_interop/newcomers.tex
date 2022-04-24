@@ -5,6 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ivoa-escape]{votutorial}
 
+
+
 \lstset{style=daiquiri, language=SQL}
 
 \title {Dancing the VOltz}
@@ -13,9 +15,17 @@
 \titlepicture{title-aladin}
 % \renewcommand{\today}{August 31, 2018}
 
-\begin {document}
+
+%\newcommand{\glossitem}[2]
+%{
+%\item \color{VOnum}{{#1}} :  \color{black}{{#2}}
+%}
 
 \input{input_standards}
+
+
+\begin {document}
+
 \maketitle
 
 \pagebreak
@@ -43,7 +53,7 @@ it easier for newcomers to get into the IVOA meeting.
 This tutorial is presented at the newcomers session for the IVOA
 Interoperability meeting in May 2021\end{abstract}
 
-\usedsoftware{\Topcat\ V4.8, \Aladin\ V11.0\Astropy, \PyVO}
+\usedsoftware{\Topcat\ V4.8, \Aladin\ V11.0, \PyVO}
 
 
 \section{Starting out}
@@ -576,11 +586,7 @@ Documentation}
 
 \section{Glossary}
 
-\begin{description}
-
 \input{glossary}
-
-\end{description}
 
    
  
