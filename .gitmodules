@@ -1,0 +1,3 @@
+[submodule "IVOA_interop/glossary"]
+	path = IVOA_interop/glossary
+	url = git@github.com:ivoa/glossary.git
