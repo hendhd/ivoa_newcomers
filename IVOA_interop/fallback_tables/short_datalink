@@ -1,0 +1,220 @@
+<?xml version='1.0'?>
+<VOTABLE version="1.4"
+ xmlns="http://www.ivoa.net/xml/VOTable/v1.3">
+<!--
+ !  VOTable written by STIL version 4.0-5 (uk.ac.starlink.votable.VOTableWriter)
+ !  at 2022-04-25T19:08:00
+ !-->
+<RESOURCE>
+<RESOURCE>
+  <COOSYS ID="t3-coosys-1" system="ICRS"/>
+</RESOURCE>
+<TABLE name="plates" nrows="1">
+<DESCRIPTION>
+The main catalog of the plates contained in the archive.
+</DESCRIPTION>
+<PARAM arraysize="9" datatype="char" name="CoordFlavor" utype="stc:AstroCoordSystem.SpaceFrame.CoordFlavor" value="SPHERICAL"/>
+<PARAM arraysize="4" datatype="char" name="CoordRefFrame" utype="stc:AstroCoordSystem.SpaceFrame.CoordRefFrame" value="ICRS"/>
+<PARAM arraysize="2" datatype="char" name="TimeScale" utype="stc:AstroCoordSystem.TimeFrame.TimeScale" value="TT"/>
+<PARAM arraysize="41" datatype="char" name="URI" utype="stc:DataModel.URI" value="http://www.ivoa.net/xml/STC/stc-v1.30.xsd"/>
+<PARAM arraysize="31" datatype="char" name="server" value="http://dc.zah.uni-heidelberg.de"/>
+<PARAM arraysize="810" datatype="char" name="sql_query" value="SELECT lsw.plates.accref, lsw.plates.owner, lsw.plates.embargo, lsw.plates.mime, lsw.plates.accsize, lsw.plates.centeralpha, lsw.plates.centerdelta, lsw.plates.imagetitle, lsw.plates.instid, lsw.plates.dateobs, lsw.plates.naxes, lsw.plates.pixelsize, lsw.plates.pixelscale, lsw.plates.refframe, lsw.plates.wcs_equinox, lsw.plates.wcs_projection, lsw.plates.wcs_refpixel, lsw.plates.wcs_refvalues, lsw.plates.wcs_cdmatrix, lsw.plates.bandpassid, lsw.plates.bandpassunit, lsw.plates.bandpassrefval, lsw.plates.bandpasshi, lsw.plates.bandpasslo, lsw.plates.pixflags, lsw.plates.coverage, lsw.plates.exposure, lsw.plates.airmass, lsw.plates.object, lsw.plates.emulsion, lsw.plates.filter, lsw.plates.observer, lsw.plates.starttime, lsw.plates.endtime, lsw.plates.plateid, lsw.plates.pub_did FROM lsw.plates LIMIT 1"/>
+<PARAM arraysize="30" datatype="char" name="query" value="SELECT TOP 1 * FROM lsw.plates"/>
+<PARAM arraysize="52" datatype="char" name="src_res" value="Contains traces from resource lswscans/res/positions">
+<DESCRIPTION>Scans of plates kept at Landessternwarte Heidelberg-Königstuhl. They
+were obtained at location, at the German-Spanish Astronomical Center
+(Calar Alto Observatory), Spain, and at La Silla, Chile. The plates
+cover a time span between 1880 and 1999.
+
+Specifically, HDAP is essentially complete for the plates taken with
+the Bruce telescope, the Walz reflector, and Wolf's Doppelastrograph
+at both the original location in Heidelberg and its later home on
+Königstuhl.</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="43" datatype="char" name="copyright" value="lswscans/res/positions copyright or license">
+<DESCRIPTION>If you use this data, please acknowledge: "This work made use of the
+HDAP which was produced at Landessternwarte Heidelberg-Königstuhl
+under grant No. 00.071.2005 of the Klaus-Tschira-Foundation."
+
+The data in this service was calibrated using Astrometry.net,
+:bibcode:`2010AJ....139.1782L`.</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="43" datatype="char" name="copyright" value="lswscans/res/positions copyright or license">
+<DESCRIPTION>\RSTcc0{the HDAP scans}</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="37" datatype="char" name="src_table" value="Contains traces from table lsw.plates">
+<DESCRIPTION>The main catalog of the plates contained in the archive.</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="2" datatype="char" name="QUERY_STATUS" value="OK">
+<DESCRIPTION>Query successful</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="54" datatype="char" name="citation" value=" http://www.lsw.uni-heidelberg.de/projects/scanproject">
+<DESCRIPTION>This resource contains data associated with the publication  http://www.lsw.uni-heidelberg.de/projects/scanproject.</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="52" datatype="char" name="citation" value="http://dc.zah.uni-heidelberg.de/tableinfo/lsw.plates">
+<DESCRIPTION>For advice on how to cite the resource(s) that contributed to this result, see http://dc.zah.uni-heidelberg.de/tableinfo/lsw.plates</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="292" datatype="char" name="legal" value='If you use  this data, please acknowledge: "This work made use of the HDAP which was produced at Landessternwarte Heidelberg-Königstuhl under grant No. 00.071.2005 of the Klaus-Tschira-Foundation."  The data in this service was calibrated using Astrometry.net, :bibcode:`2010AJ....139.1782L`.'/>
+<FIELD ID="accref" arraysize="*" datatype="char" name="accref" ucd="meta.ref.url" utype="Access.Reference">
+<DESCRIPTION>Access key for the data</DESCRIPTION>
+</FIELD>
+<FIELD ID="owner" arraysize="*" datatype="char" name="owner">
+<DESCRIPTION>Owner of the data</DESCRIPTION>
+</FIELD>
+<FIELD ID="embargo" arraysize="*" datatype="char" name="embargo" unit="a" xtype="timestamp">
+<DESCRIPTION>Date the data will become/became public</DESCRIPTION>
+</FIELD>
+<FIELD ID="mime" arraysize="*" datatype="char" name="mime" ucd="meta.code.mime" utype="Access.Format">
+<DESCRIPTION>MIME type of the file served</DESCRIPTION>
+</FIELD>
+<FIELD ID="accsize" datatype="long" name="accsize" ucd="VOX:Image_FileSize" unit="byte" utype="Access.Size">
+<DESCRIPTION>Size of the data in bytes</DESCRIPTION>
+</FIELD>
+<FIELD ID="centerAlpha" datatype="double" name="centerAlpha" ref="t3-coosys-1" ucd="pos.eq.ra" unit="deg">
+<DESCRIPTION>Approximate center of image, RA</DESCRIPTION>
+</FIELD>
+<FIELD ID="centerDelta" datatype="double" name="centerDelta" ref="t3-coosys-1" ucd="pos.eq.dec" unit="deg">
+<DESCRIPTION>Approximate center of image, Dec</DESCRIPTION>
+</FIELD>
+<FIELD ID="imageTitle" arraysize="*" datatype="char" name="imageTitle" ucd="meta.title">
+<DESCRIPTION>Synthetic name of the image</DESCRIPTION>
+</FIELD>
+<FIELD ID="instId" arraysize="*" datatype="char" name="instId" ucd="meta.id;instr">
+<DESCRIPTION>Identifier of the originating instrument</DESCRIPTION>
+</FIELD>
+<FIELD ID="dateObs" datatype="double" name="dateObs" ref="t3-coosys-1" ucd="time;obs.exposure" unit="d" xtype="mjd">
+<DESCRIPTION>Epoch at midpoint of observation</DESCRIPTION>
+</FIELD>
+<FIELD ID="nAxes" datatype="int" name="nAxes" ucd="pos.wcs.naxes">
+<DESCRIPTION>Number of axes in data</DESCRIPTION>
+</FIELD>
+<FIELD ID="pixelSize" arraysize="*" datatype="int" name="pixelSize" ucd="pos.wcs.naxis" unit="pix">
+<DESCRIPTION>Number of pixels along each of the axes</DESCRIPTION>
+</FIELD>
+<FIELD ID="pixelScale" arraysize="*" datatype="float" name="pixelScale" ucd="pos.wcs.scale" unit="deg/pix">
+<DESCRIPTION>The pixel scale on each image axis</DESCRIPTION>
+</FIELD>
+<FIELD ID="refFrame" arraysize="*" datatype="char" name="refFrame" ucd="pos.frame">
+<DESCRIPTION>Coordinate system reference frame</DESCRIPTION>
+</FIELD>
+<FIELD ID="wcs_equinox" datatype="float" name="wcs_equinox" ucd="time.equinox" unit="yr">
+<DESCRIPTION>Equinox of the given coordinates</DESCRIPTION>
+</FIELD>
+<FIELD ID="wcs_projection" arraysize="*" datatype="char" name="wcs_projection" ucd="pos.wcs.ctype">
+<DESCRIPTION>FITS WCS projection type</DESCRIPTION>
+</FIELD>
+<FIELD ID="wcs_refPixel" arraysize="*" datatype="float" name="wcs_refPixel" ucd="pos.wcs.crpix" unit="pix">
+<DESCRIPTION>WCS reference pixel</DESCRIPTION>
+</FIELD>
+<FIELD ID="wcs_refValues" arraysize="*" datatype="double" name="wcs_refValues" ucd="pos.wcs.crval" unit="deg">
+<DESCRIPTION>World coordinates at WCS reference pixel</DESCRIPTION>
+</FIELD>
+<FIELD ID="wcs_cdmatrix" arraysize="*" datatype="float" name="wcs_cdmatrix" ucd="pos.wcs.cdmatrix" unit="deg/pix">
+<DESCRIPTION>FITS WCS CDij matrix</DESCRIPTION>
+</FIELD>
+<FIELD ID="bandpassId" arraysize="*" datatype="char" name="bandpassId" ucd="instr.bandpass">
+<DESCRIPTION>Freeform name of the bandpass used</DESCRIPTION>
+</FIELD>
+<FIELD ID="bandpassUnit" arraysize="*" datatype="char" name="bandpassUnit">
+<DESCRIPTION>Unit of bandpass specifications (always m).</DESCRIPTION>
+</FIELD>
+<FIELD ID="bandpassRefval" datatype="float" name="bandpassRefval" ucd="instr.bandpass;stat.median" unit="m">
+<DESCRIPTION>Characteristic quantity for the bandpass of the image</DESCRIPTION>
+</FIELD>
+<FIELD ID="bandpassHi" datatype="float" name="bandpassHi" ucd="instr.bandpass;stat.max" unit="m">
+<DESCRIPTION>Upper limit of the bandpass (in BandPass_Unit units)</DESCRIPTION>
+</FIELD>
+<FIELD ID="bandpassLo" datatype="float" name="bandpassLo" ucd="instr.bandpass;stat.min" unit="m">
+<DESCRIPTION>Lower limit of the bandpass (in BandPass_Unit units)</DESCRIPTION>
+</FIELD>
+<FIELD ID="pixflags" arraysize="*" datatype="char" name="pixflags" ucd="meta.code">
+<DESCRIPTION>Flags specifying the processing done (C-original; F-resampled; Z-fluxes valid; X-not resampled; V-for display only</DESCRIPTION>
+</FIELD>
+<FIELD ID="coverage" arraysize="*" datatype="double" name="coverage" unit="deg" xtype="polygon">
+<DESCRIPTION>Field covered by the image</DESCRIPTION>
+</FIELD>
+<FIELD ID="exposure" datatype="float" name="exposure" ucd="time.duration;obs.exposure" unit="s">
+<DESCRIPTION>Effective exposure time</DESCRIPTION>
+</FIELD>
+<FIELD ID="airmass" datatype="float" name="airmass" ucd="obs.airMass">
+<DESCRIPTION>Airmass at mean epoch</DESCRIPTION>
+</FIELD>
+<FIELD ID="object" arraysize="*" datatype="char" name="object" ucd="meta.id">
+<DESCRIPTION>Special object on plate</DESCRIPTION>
+</FIELD>
+<FIELD ID="emulsion" arraysize="*" datatype="char" name="emulsion" ucd="instr.plate.emulsion">
+<DESCRIPTION>Emulsion of the original plate</DESCRIPTION>
+</FIELD>
+<FIELD ID="filter" arraysize="*" datatype="char" name="filter" ucd="meta.id;instr.filter;meta.main">
+<DESCRIPTION>Filter description</DESCRIPTION>
+</FIELD>
+<FIELD ID="observer" arraysize="*" datatype="char" name="observer" ucd="obs.observer">
+<DESCRIPTION>Observer</DESCRIPTION>
+</FIELD>
+<FIELD ID="startTime" arraysize="*" datatype="char" name="startTime" ucd="time.start;obs" unit="d" xtype="timestamp">
+<DESCRIPTION>UT at start of exposure</DESCRIPTION>
+</FIELD>
+<FIELD ID="endTime" arraysize="*" datatype="char" name="endTime" ucd="time.end;obs" unit="d" xtype="timestamp">
+<DESCRIPTION>UT at end of exposure</DESCRIPTION>
+</FIELD>
+<FIELD ID="plateID" arraysize="*" datatype="char" name="plateID">
+<DESCRIPTION>Plate name as specified in observation catalogue</DESCRIPTION>
+</FIELD>
+<FIELD ID="pub_did" arraysize="*" datatype="char" name="pub_did" ucd="meta.ref.url">
+<DESCRIPTION>Dataset identifier assigned by the publisher.</DESCRIPTION>
+</FIELD>
+<DATA>
+<TABLEDATA>
+  <TR>
+    <TD>http://dc.zah.uni-heidelberg.de/getproduct/lswscans/data/part1/Bruceplatten/FITS/B3254b.fits</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD>image/fits</TD>
+    <TD>1275295680</TD>
+    <TD>319.6573862317377</TD>
+    <TD>38.05712453888222</TD>
+    <TD>B3254b 1913-08-03 Tau Cyg</TD>
+    <TD>Heidelberg Koenigstuhl (24), Bruce Astrograph</TD>
+    <TD>19982.93346064817</TD>
+    <TD>2</TD>
+    <TD>22404 28461</TD>
+    <TD>2.832969E-4 2.8285658E-4</TD>
+    <TD>ICRS</TD>
+    <TD>2000.0</TD>
+    <TD>TAN</TD>
+    <TD>9469.437 11729.444</TD>
+    <TD>320.296550069 38.7579298295</TD>
+    <TD>-2.8332754E-4 -4.9666546E-6 4.8067495E-6 -2.8281836E-4</TD>
+    <TD></TD>
+    <TD>m</TD>
+    <TD>NaN</TD>
+    <TD>NaN</TD>
+    <TD>NaN</TD>
+    <TD></TD>
+    <TD>323.9752823380474 41.9655813488809 323.4234533083864 33.950771302698485 315.7938206628463 34.01062725208238 315.4592238394981 42.03222481621178</TD>
+    <TD>12317.0</TD>
+    <TD>1.0623</TD>
+    <TD>Tau Cyg</TD>
+    <TD>blue sensitive</TD>
+    <TD></TD>
+    <TD>F.Kaiser</TD>
+    <TD>1913-08-03T20:39:11</TD>
+    <TD>1913-08-04T00:09:11</TD>
+    <TD>B3254b</TD>
+    <TD>ivo://org.gavo.dc/~?lswscans/data/part1/Bruceplatten/FITS/B3254b.fits</TD>
+  </TR>
+</TABLEDATA>
+</DATA>
+</TABLE>
+<RESOURCE type="meta" utype="adhoc:service" name="links">
+  <DESCRIPTION>This service lets you access cutouts from HDAP plates and retrieve
+scaled versions.</DESCRIPTION>
+  <PARAM name="accessURL" datatype="char" arraysize="*" value="http://dc.zah.uni-heidelberg.de/lswscans/res/positions/dl/dlmeta"/>
+  <PARAM name="standardID" datatype="char" arraysize="*" value="ivo://ivoa.net/std/DataLink#links-1.0"/>
+  <GROUP name="inputParams">
+    <PARAM arraysize="*" datatype="char" name="ID" ref="pub_did" ucd="meta.id;meta.main" value="">
+    </PARAM>
+  </GROUP>
+</RESOURCE>
+</RESOURCE>
+</VOTABLE>

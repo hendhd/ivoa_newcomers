@@ -1,0 +1,53 @@
+<?xml version='1.0'?>
+<VOTABLE version="1.4"
+ xmlns="http://www.ivoa.net/xml/VOTable/v1.3">
+<!--
+ !  VOTable written by STIL version 4.0-5 (uk.ac.starlink.votable.VOTableWriter)
+ !  at 2022-04-25T19:06:33
+ !-->
+<RESOURCE>
+<RESOURCE>
+  <COOSYS ID="t2-coosys-1" epoch="J2000.0" system="ICRS"/>
+</RESOURCE>
+<TABLE name="data" nrows="1">
+<PARAM arraysize="9" datatype="char" name="CoordFlavor" utype="stc:AstroCoordSystem.SpaceFrame.CoordFlavor" value="SPHERICAL"/>
+<PARAM arraysize="4" datatype="char" name="CoordRefFrame" utype="stc:AstroCoordSystem.SpaceFrame.CoordRefFrame" value="ICRS"/>
+<PARAM arraysize="6" datatype="char" name="Epoch" utype="stc:AstroCoords.Position2D.Epoch" value="2000.0"/>
+<PARAM arraysize="1" datatype="char" name="yearDef" utype="stc:AstroCoords.Position2D.Epoch.yearDef" value="J"/>
+<PARAM arraysize="41" datatype="char" name="URI" utype="stc:DataModel.URI" value="http://www.ivoa.net/xml/STC/stc-v1.30.xsd"/>
+<PARAM arraysize="31" datatype="char" name="server" value="http://dc.zah.uni-heidelberg.de"/>
+<PARAM arraysize="57" datatype="char" name="sql_query" value="SELECT raj2000, dej2000, mainid FROM twomass.data LIMIT 1"/>
+<PARAM arraysize="55" datatype="char" name="query" value="SELECT TOP 1 raj2000, dej2000, mainid FROM twomass.data"/>
+<PARAM arraysize="45" datatype="char" name="src_res" value="Contains traces from resource 2mass/res/2mass">
+<DESCRIPTION>The 2MASS Point Source Catalogue, short a couple of exotic fields. We
+provide this data mainly for matching with other catalogs within our
+TAP service.</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="39" datatype="char" name="src_table" value="Contains traces from table twomass.data"/>
+<PARAM arraysize="2" datatype="char" name="QUERY_STATUS" value="OK">
+<DESCRIPTION>Query successful</DESCRIPTION>
+</PARAM>
+<PARAM arraysize="54" datatype="char" name="citation" value="http://dc.zah.uni-heidelberg.de/tableinfo/twomass.data">
+<DESCRIPTION>For advice on how to cite the resource(s) that contributed to this result, see http://dc.zah.uni-heidelberg.de/tableinfo/twomass.data</DESCRIPTION>
+</PARAM>
+<FIELD ID="RAJ2000" datatype="double" name="RAJ2000" ref="t2-coosys-1" ucd="pos.eq.ra;meta.main" unit="deg">
+<DESCRIPTION>Right ascension (J2000)</DESCRIPTION>
+</FIELD>
+<FIELD ID="DEJ2000" datatype="double" name="DEJ2000" ref="t2-coosys-1" ucd="pos.eq.dec;meta.main" unit="deg">
+<DESCRIPTION>Declination (J2000)</DESCRIPTION>
+</FIELD>
+<FIELD ID="mainid" arraysize="*" datatype="char" name="mainid" ucd="meta.id;meta.main">
+<DESCRIPTION>Source designation</DESCRIPTION>
+</FIELD>
+<DATA>
+<TABLEDATA>
+  <TR>
+    <TD>314.996394</TD>
+    <TD>35.267357</TD>
+    <TD>20595913+3516024</TD>
+  </TR>
+</TABLEDATA>
+</DATA>
+</TABLE>
+</RESOURCE>
+</VOTABLE>
