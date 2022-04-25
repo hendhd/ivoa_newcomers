@@ -1,0 +1,22 @@
+SELECT
+   TOP 1000
+   antares.*, sdss.objid, sdss.ra, sdss.dec, sdss.u, sdss.g, sdss.r, sdss.i, sdss.z
+   FROM sdssdr7.sources AS sdss
+   JOIN TAP_UPLOAD.t1 AS antares
+   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
+                 CIRCLE('ICRS', antares.ra, antares.decl, 10./3600.))
+
+
+
+SELECT
+   TOP 10000
+   *
+   FROM sdssdr7.sources AS sdss
+   JOIN TAP_UPLOAD.t1 AS antares
+   ON 1=CONTAINS(POINT('ICRS', sdss.ra, sdss.dec),
+                 CIRCLE('ICRS', antares.RA, antares.Decl, 5./3600.))
+   JOIN lsw.plates as plates
+   ON 1=CONTAINS(POINT('ICRS', plates.centeralpha, plates.centerdelta),
+                 CIRCLE('ICRS', antares.RA, antares.Decl, 1.))
+   AND plates.accsize<200000000
+
