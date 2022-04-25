@@ -1,20 +1,18 @@
 ## Welcome to the IVOA newcomer session!
 
 We are happy that you join in to our introduction to the IVOA. In the
-following two sessions we want to five you an overview about the VO
+following part of the newcomer's session we want to give you an overview about the VO
 standards, how they are connected, and how they are connected to the
-Working Groups. We hope this will make it easier to get into the work
-flow of the Interop meeting.
+Working Groups. We hope this will make it easier for you to slip into IVOA jargon and to get into the work
+flow of the Interop meetings. 
 
-### Session 1 
+### Part 1 of the tutorial
 will introduce to some of the VO standards following a
-multimessenger use case
+multimessenger use case from the user's perspective.
 
-### Session 2 
-will see the implementation of these standards in PyVO and how automatic
-access to data and between client software works. Also, we will show a
-model of the way a standard goes from being a demand to become a
-recommendation. 
+### Part 2 of the tutorial
+will show selected steps of the 1st part tuorial from the perspective of the dataprovider. 
+The question here is: what does it need from the perspective of a dataprovide to enable the user experience of part 1 ?
 
 The full material of the sessions is available in the github repository
 linked to this page here. You can access it by following the above link
