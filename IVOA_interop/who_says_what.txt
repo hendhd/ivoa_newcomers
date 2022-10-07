@@ -1,0 +1,95 @@
+
+From the user's perspective
+
+Start with ESCAP logo page
+
+Abstract
+slide#2
+IVOA working group structure (simple)
+
+1. Finding Neutrino data in the VO-registry
+
+VO Registry
+slides 4 .... 8 
+Simple overview, registry is where users find out about data and services.
+
+2. Retrieve neutrino data through a Cone Search –
+ConeSearch
+slide #10
+first standard tha IVOA agreed on
+simple cone on the sky, doies what it says on the box
+
+3 Adding catalogue data to the neutrino candidates with TAP –
+
+TAP upload
+TopCat 'knows' what tables because of UCDs 
+slides 12 .... 13
+
+
+ 5 Using DataLink
+Using SAMP to launch applications based on metadata in the DataLink
+slides 15 ... 19
+-> Show SAMP Standard on Standards and Documents !
+https://ivoa.net/documents/
+https://ivoa.net/documents/SAMP/20120411/index.html
+-> show Architecture diagram in the samp standard
+
+From the publisher's perspective
+Show simple VOTABLE from 
+
+SELECT TOP 1 mainid, RAJ2000, DEJ2000 FROM twomass.data
+
+VOTABLE is the format how we transport data between a server and a client, or (in case of SAMP) between two clients. 
+
+HH
+Here starts the work of the dataprovider! 
+Show the relationship between FIELDs, column  names, ref to coordsys, ucd and units.
+This is the core of the data exchange in the IVOA.
+
+DM
+Don't worry: 
+You don't need to write XML, there are tools available to make this easier.
+but a key part of the data provider role is to collect and curate this  metadata
+
+Role of the data provider ....
+Data discovery
+How the to help the user find the data they want.
+TopCat TAP service table window
+column metadata, USDs etc
+
+step before that, finding the service we want
+searching for 'sdss'
+what you get is a list of 570 tables in the VO that contain `sdss` in the table name or description
+
+includes tables which contain a subset or crossmatches with 'sdss' data
+change search to `sdss dr16` constrains the search and we get one result
+
+what does a data provider need to provide to enable this kind of search
+
+back to registry
+slides 21 ... 23
+
+can do the same for cone search
+search for `sdss` is equally overwhelming
+search for `sdss dr16` and it constrains the search and we get one result
+
+How a standard is developed in a working group.
+
+Show the table of standards (again)
+https://ivoa.net/documents/
+
+The published version
+https://ivoa.net/documents/cover/ConeSearch-20080222.html
+
+The development version
+https://ivoa.net/documents/ConeSearch/20200828/index.html
+Updating the standard to bring it uo to date with 12 years of changes in the metadata  standards
+
+PyVO
+ObsCore
+slides 25 ... 27
+
+Final slide IVOA  process, invite everyone to join the discissions and contribute :-)
+
+
+
