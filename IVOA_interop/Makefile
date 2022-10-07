@@ -1,4 +1,4 @@
 DOCNAME=newcomers
 SOURCES=$(DOCNAME).tex
 FIGURES=
-include ../latex-votut/Makefile
+include latex-votut/Makefile
