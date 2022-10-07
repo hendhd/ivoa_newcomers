@@ -1,0 +1,97 @@
+A LaTeX style to help writing VO tutorials.
+
+Getting started
+===============
+
+(1) create your document in the svn, maybe somewhat like this:
+
+	mkdir mytut
+	svn import mytut https://svn.ari.uni-heidelberg.de/svn/edu/trunk/mutut
+	rmdir mytut
+	svn co mytut https://svn.ari.uni-heidelberg.de/svn/edu/trunk/mutut
+
+-- change mytut to whatever short name (project_keyword form highly 
+preferred) you choose.
+
+(2) "soft-link" this directory by using svn:external
+
+	cd mytut
+	svn propset svn:externals "latex-votut https://svn.ari.uni-heidelberg.de/svn/edu/trunk/latex-votut" .
+	svn update
+
+-- the latex-votut name is important, it's currently hardcoded in the 
+style file.
+
+
+(3) create your language-dependent subdir and start hacking
+
+	mkdir en
+	cd en
+	cp ../latex-votut/Makefile.template Makefile
+	# (edit Makefile, set docname at least)
+	cp ../latex-votut/template.tex mytut.tex
+	svn propset  svn:ignore --file ../latex-votut/svn-ignore.txt .
+	# (edit mytut.tex)
+	make
+	# watch mytut.pdf
+
+
+What this style gives you
+=========================
+- uniform layout for all tutorials
+- option \titlepicture{filename}: if set in preamble, image 'filename' is put below title
+- fancy header on top:
+  depending on option, there is a GAVO, EURO-VO or IVOA logo added in header;
+  use \setlogo{img} to set your own img as logo.
+  By default, it will have height=2em; redefine \headerlogo if you need 
+  different options
+- commands for common software (includes URL-link), e.g. \Simbad, \WIRR, see votutorial.sty;
+  aligned with abstract-environment
+- predefined styles for links, urls, sections etc.
+- \goto to make a right-arrow for menu navigation
+- \key to highlight keywords 
+- \sql for sql-commands; \begin{sqlbox},\end{sqlbox} to enclose sql-entries;
+  you can also use the listings-package to get syntax highlighting; for 
+  an example with sql-syntax highlighting, see gavo_rave.
+- a standardsinfo environment; it's a breakout box intended for short
+  background infos about the underlying standards.  Mark up the standard
+  names with \s{...}.
+- \tutstep{purpose}, \resettutstep for marking up step-by-step
+  instructions.
+- an exercise environment that sets apart a little problem-type piece
+  (typically, something to keep advanced students busy while everyone
+  else trudges along).
+- A cczero macro declaring your document public domain (intended for the
+  last page)
+- A onvott macro declaring your document is listed on VOTT.
+
+
+Things you may want to set/redefine
+===================================
+- \iconscale (default: 0.7) to adjust size of icons included via \icon{}.
+- \icondir: directory with icons, default: latex-votut/icons
+- \logodir: directory with ivoa-logo etc., default: latex-votut
+- maketitle
+- geometry settings (if you prefer larger/smaller margins); adjust these BEFORE including votutorials-package! (otherwise header will be messed up)
+   e.g.: 
+      \usepackage[a4paper, top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+      \usepackage[gavo]{votutorial}
+- \titlepicture{filename}: set picture for \maketitle
+- \setlogo{logoname}: set your own logo, if not defined via package option
+- \headerlogo: use \includegraphics{\logoname} with custom options, if the default doesn't work for you
+- \abstractname: default is set in the package ("What's this about"). Redefine, if desired.
+- \fancyhead[LE,RO]{\@title}: replace @title by a prefered short title or \leftmark or whatever you prefer
+
+
+Known issues
+============
+- \linespread set to 1.15
+This gives a linespacing of 1.38 (default for 10pt: 1.2). However, it does not work if a linebreak is done manually with "\\" inside the enumeration/itemize environment. Any ideas how to fix this?
+\openup 0.38em could work, but this fails within the abstract-environment for some reason.
+Work-around: use \\[0.38ex] when inside enumeration/itemize environment or never use "\\"
+
+- The image directories for logos (\logodir) and icons (\icondir) are hardwired in the style-file. Overwrite the definitions to define your own.
+- titlepicture will be stretched to 0.8\textwidth. This is hard-wired in the package.
+- Won't work with book- or letter-documentclasses, only article and report are supported.
+- Needs twoside-option for articles, if fancyheader is used (e.g. with [gavo] option).
+

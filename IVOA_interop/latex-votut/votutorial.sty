@@ -1,0 +1,541 @@
+%------------------------------------------------------------------------------
+%   LaTeX-styles for GAVO tutorials
+% 
+% * Following document classes are supported:
+%   - article, report, scrartcl, scrreprt
+%   Classes like letter and book won't work with this style.
+% * GAVO logo or IVOA/Euro-VO logo in header:
+%   - use the options [gavo], [eurovo] or [ivoa] when including the package:
+%   \usepackage[gavo]{latex-votut/votutorial}
+%   - use [customlogo] for any other logo. The file must be named "logo"
+%     (with any pdflatex-compatible extension) and must lie in the local 
+%     directory (or anywhere else where LaTeX can find it). 
+%   - Alternatively set your own logofile with \setlogo{}
+%   - If no logoname is set (either using a package-option or \setlogo manually)
+%     then no logo is used.
+% * The package uses maketitle for title, author and abstract. Thus start each new tutorial
+%   similar to this:
+%   \title{A tutorial to demonstrate something}
+%   \author{Your Name}
+%   \begin{document}
+%   \maketitle
+%   \begin{abstract}
+%   Some blabla as introduction, a short abstract, ...
+%   \end{abstract}
+%   \usedsoftware{\Topcat, \Aladin}
+% * Add \titlepicture{filename} before \begin{document} to put a picture just
+%   below the title.
+% * Adjust the header of the abstract by adding \def\abstractname{My custom abstract header}
+% * Adjust the running title by adding
+%   \def\runtitle{My running title}
+%   \fancyhead[LE,RO]{\runtitle}
+%   You can also use section headings in the headline like this:
+%   \fancyhead[LE,RO]{\leftmark}
+%   Default is the title given with \title{}.
+% * names of some software, tools and websites are defined as commands below, 
+%   for including the url automatically; add your own as needed with the same 
+%   pattern at the top of your document
+% * use \icon{<picname} to place small icons of e.g. topcat-rowsubset within 
+%   the text; this expects, that you have your icon-pictures stored in 
+%   "\icondir", given below. Some icons are already provided in latex-votut/icons, 
+%   but you can redefine your own \icondir at the top of your document, if 
+%   necessary.
+%
+% First version: Kristin Riebe, AIP, 20.08.2013
+% Transformed into a proper sty-file by Markus Demleitner, ARI, Feb 2014.
+% Further adjustments by Kristin and Markus followed.
+%------------------------------------------------------------------------------
+
+\makeatletter
+% === Packages === 
+\RequirePackage{graphicx} % for pictures
+\RequirePackage{xcolor} % for colors
+\RequirePackage{sectsty}  % for customized section headings etc.
+\RequirePackage{natbib}
+\RequirePackage{framed} % for sqlbox with frame
+\RequirePackage{mdwlist}  % for suspend enumerate
+\RequirePackage{xstring}  % for \IfEqCase
+\RequirePackage{fancyhdr} % nicer headers
+\RequirePackage{titling}  % easy adjustment of maketitle-format
+\RequirePackage{ifthen} 
+\RequirePackage{listings} % for lstlisting with code highlighting 
+\RequirePackage{textcomp} % for defining new language keywords for lstlisting
+\RequirePackage{upquote} % for cut'n'pasteable quotes in SQL etc.
+\RequirePackage[scaled=.92]{helvet}   % for the \key macro
+
+\definecolor{linkcolor}{rgb}{0.318,0,0.318}
+\RequirePackage[colorlinks,
+	linkcolor=linkcolor,
+	anchorcolor=linkcolor,
+	citecolor=linkcolor,
+	urlcolor=linkcolor,
+	breaklinks=true]{hyperref} % for interactive links
+% === Global Setup ===
+% (this should probably be a defaulted package option)
+\def\logodir{latex-votut/}
+\def\icondir{latex-votut/icons/}
+\graphicspath{{\logodir}{\icondir}}
+\bibliographystyle{../latex-votut/ivoa}
+
+
+% === Setup links ===
+\hypersetup{%
+    colorlinks = true,%
+    urlcolor = urlblue,%
+    linkcolor = urlblue%
+}
+%\renewcommand{\url}[1]{ \href{#1}{#1} }
+
+% === Setup header ===
+% -- general stuff
+\addtolength{\headheight}{0.8cm}
+\addtolength{\textheight}{-\headheight} % subtract additional headheight
+\setlength{\headwidth}{\textwidth}
+
+
+% set headerlogo, if there is a logoname defined
+% can also use \setlogo{} within document
+\newcommand{\setlogo}[1]{\gdef\logoname{#1}}
+
+% define how to include logo; 
+% redefine this command, if you need something else
+\newcommand{\headerlogo}{
+   \includegraphics[height=2em]{\logoname}
+}
+
+% default fancy pagestyle,
+% - include logo (but only if logoname is defined)
+% - works also with 'twoside', though KOMA-classes scrartcl and scrreprt print 
+%   pagenumbers in footer not-centered for chapter-pages
+%   adjust \fancyfoot yourself, if needed
+\fancyhead[RE,LO]{ % right
+    \ifcsname logoname\endcsname%
+      \headerlogo
+    \fi
+}%
+\fancyhead[LE,RO]{\@title}
+\pagestyle{fancy}
+
+
+% use headerlogo=gavo as package option? 
+% would need to use kvoptions or similar to enable that.
+
+
+% === Process package options
+%
+\DeclareOption{gavo}{\setlogo{gavo-logo-hdr}}
+\DeclareOption{eurovo}{\setlogo{eurovo-logo-hdr}}
+\DeclareOption{ivoa}{\setlogo{ivoa-logo-hdr}}
+\DeclareOption{asterics}{\setlogo{asterics-logo-hdr}}
+\DeclareOption{escape}{\setlogo{escape-logo-hdr}}
+\DeclareOption{ivoa-escape}{\setlogo{ivoa-escape-logo-hdr}}
+
+\DeclareOption{customlogo}{\setlogo{logo}}
+\DeclareOption*{%
+  \PackageWarning{Unknown option '\CurrentOption'}%
+}
+\ProcessOptions\relax
+
+
+
+% === Setup title and abstract ===
+
+% define titlepicture as eye-catcher
+% (name must be defined as \titlepicture{} before \begin{document})
+% -- define \titlepicture (so that it creates a @titlepicturename)
+\newcommand{\titlepicture}[1]{\gdef\@titlepicturename{#1}}
+% -- define @titlepicture to include graphics for maketitle, 
+% (but only if \@titlepicturename is set)
+\newcommand{\@titlepicture}[1][@titlepicturename]{%
+  \ifcsname #1\endcsname%
+    \vspace*{6ex} \includegraphics[width=0.8\textwidth]{\@titlepicturename}%
+  %\else%
+    %\ titlepicture not defined... % since given command '#1' does not exist ...%
+  \fi%
+}
+
+% adjust maketitle (adjust font, color, add titlepicture)
+\pretitle{%
+\vspace{-4cm}\hskip-2cm\box\logobox%
+\vspace{1.4cm}\begin{center}\LARGE \color{sectioncol} \sffamily \bf}
+\posttitle{{\par\large \vspace*{0.1ex} {\@titlepicture \par} } \end{center}}
+
+% adjust abstract (adjust font, color, width)
+\def\abstractwidth{0.85\textwidth}   % will be reused for \usedsoftware{} to align both
+\renewenvironment{abstract}{%
+\begin{center}
+{\color{sectioncol} \sffamily \large \textbf{\abstractname} }\\ %
+\vskip 1em
+\begin{minipage}{\abstractwidth}
+}
+{ \par%
+\end{minipage}
+\end{center}
+}
+
+%
+
+
+% === Adjust headings ===
+
+% set character styles
+\chapterfont{\color{sectioncol}\sffamily}  % sets colour of chapters, only needed for book-class
+\sectionfont{\color{sectioncol}\sffamily}  % sets colour of sections
+\subsectionfont{\color{sectioncol}\sffamily}  % sets colour of subsections
+
+% remove section numbers ...
+%\renewcommand{\thesection}{\hspace*{-1.0em}} ... keep them, use \section* if you don't want them.
+%\renewcommand{\thesubsection}{\arabic{subsection}}
+
+
+% === Typesetting, colors, commands ===
+
+% define some colors
+\definecolor{urlblue}{rgb}{0.09,0.45,0.80}
+\definecolor{sqlborder}{rgb}{0.65,0.65,0.65}
+\definecolor{sqlbg}{rgb}{0.92,0.92,0.92}
+\definecolor{sectioncol}{rgb}{0.15,0.13,0.5}
+
+\definecolor{darkgreen}{rgb}{0.,0.3,0.}
+\definecolor{darkgrey}{rgb}{0.2,0.2,0.2}
+\definecolor{darkblue}{rgb}{0.09,0.25,0.5}
+\definecolor{lightblue}{rgb}{0.09,0.45,0.80}
+
+
+% some commands
+\newcommand{\usedsoftware}[1]{
+{\begin{center}\begin{minipage}{\abstractwidth}\large \textbf{Software:} \textcolor{black}{#1}\end{minipage}\end{center}}
+}
+\newcommand{\link}[2]{%
+\href{#2}{\underline{#1}}%
+}
+\newcommand{\Topcat}{%
+{\sc\link{Topcat}{\linkTopcat}}%
+}
+\newcommand{\linkTopcat}{%
+http://www.star.bris.ac.uk/~mbt/topcat/}%
+
+\newcommand{\MultiDark}{%
+\link{MultiDark}{http://www.multidark.org/}%
+}
+\newcommand{\Aladin}{%
+\link{Aladin}{\linkAladin}%
+}
+\newcommand{\linkAladin}{%
+http://aladin.u-strasbg.fr/}
+
+\newcommand{\DataDiscoveryTool}{%
+\link{Data Discovery Tool}{http://www.usvao.org/science-tools-services/vao-tools-services-data-discovery-tool/}%
+}
+\newcommand{\TAP}{%
+\link{TAP}{http://www.ivoa.net/documents/TAP/}%
+}
+\newcommand{\VizieR}{%
+\link{VizieR}{http://vizier.u-strasbg.fr/viz-bin/VizieR/}%
+}
+\newcommand{\Simbad}{%
+\link{Simbad}{http://simbad.u-strasbg.fr/simbad/}%
+}
+\newcommand{\WIRR}{%
+\link{Web Interface to the Relational Registry}{\linkWIRR}%
+}
+\newcommand{\linkWIRR}{%
+http://dc.g-vo.org/wirr/q/ui}
+
+\newcommand{\linkSPLAT}{%
+http://www.g-vo.org/pmwiki/About/SPLAT}
+
+\newcommand{\SPLAT}{%
+\link{SPLAT}{\linkSPLAT}%
+}
+
+\newcommand{\linkVOspec}{%
+http://www.sciops.esa.int/index.php?project=SAT&page=vospec}
+
+\newcommand{\VOspec}{%
+\link{VOspec}{\linkVOspec}%
+}
+
+\newcommand{\linkADQL}{
+http://www.ivoa.net/documents/latest/ADQL.html}
+\newcommand{\ADQL}{%
+\link{ADQL}{\linkADQL}%
+}
+
+\newcommand{\linkPyVO}{
+https://pyvo.readthedocs.io/en/latest/}
+
+\newcommand{\PyVO}{%
+\link{PyVO}{\linkPyVO}%
+}
+
+\newcommand{\linkAstropy}{
+https://docs.astropy.org/en/stable/install.html}
+
+\newcommand{\Astropy}{%
+\link{Astropy}{\linkAstropy}%
+}
+
+
+
+\newcommand{\UCDResolver}{%
+\link{UCD Resolver}{http://dc.zah.uni-heidelberg.de/ucds/ui/ui/form}%
+}
+\newcommand{\AstronomyNet}{%
+\link{Astrometry.net}{http://astrometry.net/}%
+}
+
+% arrow for menu navigation (File -> Open ...)
+\newcommand{\goto}{\hskip0.7ex $\rightarrow$ \hskip 0.7ex}
+
+% highlighted keywords
+\newcommand{\key}[1]{{\fontfamily{phv}\selectfont #1}}
+
+% highlight entries in a form or similar:
+\newcommand{\entry}[1]{\texttt{\color{darkgreen} #1}}
+
+% highlight menus, etc.:
+%\newcommand{\menu}[1]{\textcolor{darkgreen}{ \sffamily{#1}}}
+%\newcommand{\menu}[1]{\lq{#1}\rq}
+\newcommand{\menu}[1]{{\color{darkblue} #1}}
+
+
+% for command line stuff:
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+
+% The markup of tutorial steps
+\newcounter{tutori@lstep}
+\newcommand{\tutstep}[1][]{\addtocounter{tutori@lstep}{1}\vspace{.5ex}%
+  {\noindent\hbox to 0pt{\hss 
+    \raise.0ex\hbox{$\triangleright$ \bf\color{sectioncol}\thetutori@lstep\ }}%
+  }\ifthenelse{\equal{}{#1}}{}{\textit{#1} --}}
+\newcommand{\resettutstep}{\setcounter{tutori@lstep}{0}}
+
+
+% Make Appendices a bit more explicit.
+\renewcommand\appendix{%
+	\renewcommand\section{%
+		\@afterindentfalse
+		\vskip 3ex plus 10ex
+		\secdef\Appendix\sAppendix}%
+		\setcounter{section}{0}\renewcommand\thesection{\Alph{section}}}
+\newcommand\Appendix[2][?]{%
+	\refstepcounter{section}%
+	\addcontentsline{toc}{appendix}%
+		{\protect\numberline{\appendixname~\thesection}#1}%
+	\vbox{\raggedright\color{sectioncol}\sffamily\bfseries\Large\appendixname\
+		\thesection\\*#2\par}%
+		\sectionmark{#1}%
+		\@afterheading
+		\addvspace{\baselineskip}}
+\newcommand\sAppendix[1]{%
+	\vbox{\raggedright\color{sectioncol}\sffamily\bfseries\Large\appendixname\
+		\thesection\\*#1\par}%
+	\@afterheading\addvspace{\baselineskip}}
+
+% === Environments ===
+
+% highlight sql syntax:
+\newcommand{\sql}[1]{\texttt{\color{darkgrey}#1}}
+
+
+% create environment for box, left-justified, but padded to current environment (e.g. in enumerate/itemize etc.)
+% see: http://tex.stackexchange.com/questions/33983/how-to-eliminate-the-horizontal-spacing-of-the-frame-in-the-framed-package?rq=1
+%\makeatletter
+\newenvironment{sqlbox}{%
+ \renewcommand{\baselinestretch}{1.05}
+ \normalsize
+ \tt
+ \setlength{\FrameSep}{100pt}
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \fcolorbox{sqlborder}{sqlbg}{\color{darkgrey} ##1}\hskip-\fboxsep
+     % There is no \@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage
+   }}%
+ {\par\unskip\endMakeFramed}
+%\makeatother
+
+% simpler version, spanning from very left to very right:
+%\newenvironment{sqlbox}{%
+%\def\FrameCommand{\fcolorbox{sqlborder}{sqlbg}}%
+%\MakeFramed {\FrameRestore}\tt }%
+%{\endMakeFramed}
+%
+% create a box around sql, inline: % maybe skip parbox
+%\newcommand{\sqlboxl}[1]{
+%\fcolorbox{sqlborder}{sqlbg}{\parbox{0.8\linewidth}{
+%  \tt  #1
+%}}
+%}
+
+
+% Definition of nice highlighting style (similar to 
+% CodeMirror-highlighting in Daiquiri's query interface)
+% and ADQL syntax using listings-package. 
+% To use it in your tutorial insert the following line
+% into your tutorial and remove the comment tag in front.
+% \lstset{style=daiquiri, language=SQL}
+
+% -- adjust listings style for syntax highlighting
+\definecolor{sqlkey}{HTML}{770088}
+\definecolor{sqlnum}{HTML}{116644}
+\definecolor{sqltable}{HTML}{0055aa}
+\definecolor{sqlstring}{HTML}{aa1111}
+\definecolor{sqlcomment}{HTML}{aa5500}
+
+\lstdefinestyle{daiquiri}{%
+   	frame=single,%
+  	rulecolor=\color{sqlborder},%
+   	backgroundcolor=\color{sqlbg},%
+   	%aboveskip=0pt,%
+   	%belowskip=0pt,%
+	basewidth=0.5em,%
+	lineskip=-0.01pt,%
+   	showspaces=false,
+   	showtabs=false,
+   	upquote=true,
+	basicstyle={\normalsize \tt \color{darkgrey}},%
+	keywordstyle=\color{sqlkey},% for language specific keywords
+	keywordstyle={[2]\color{sqltable}},% for table and column names, manually delimit with ` in LaTeX-source
+	keywordstyle={[3]\color{sqlnum}},% for numbers
+	stringstyle=\color{sqlstring},
+	commentstyle=\color{sqlcomment}
+}
+
+% -- define SQL/ADQL specific keywords
+\lstdefinelanguage{SQL}{%
+	morekeywords={SELECT, FROM, WHERE, ORDER, BY, LIMIT, TOP, LIKE, AS,
+	COUNT, GROUP, FLOOR, AND, OR, BETWEEN, IS, NOT, NULL, CONTAINS, POINT,
+	CIRCLE, JOIN, ON, AVG, DESC, ASC, SQRT},%
+	morekeywords={[3]1,2,3,4,5,6,7,8,9,0},% ... not working ...
+	sensitive=false,%
+	breaklines=true, % wrap lines, if not fitting
+	numbers=none, % no line numbers
+	morecomment=[l]{--},%
+	morestring=[s]{'}{'},%
+	moredelim=[is][keywordstyle2]{`}{`},%
+	%moredelim=*[s][\itshape]{/*}{*/}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% VO ENVIRONMENT
+
+
+\definecolor{VOkey}{rgb}{0.09,0.25,0.5}
+
+\definecolor{VOnum}{HTML}{116644}
+\definecolor{Vtable}{HTML}{0055aa}
+\definecolor{VOstring}{rgb}{0.09,0.25,0.5}
+\definecolor{VOcomment}{HTML}{aa5500}
+
+\definecolor{VOborder}{rgb}{0.65,0.65,0.65}
+\definecolor{VObg}{rgb}{0.92,0.92,0.92}
+
+
+\lstdefinestyle{VO}{%
+   	frame=single,%
+  	rulecolor=\color{VOborder},%
+   	backgroundcolor=\color{VObg},%
+   	%aboveskip=0pt,%
+   	%belowskip=0pt,%
+	basewidth=0.5em,%
+	lineskip=-0.01pt,%
+   	showspaces=false,
+   	showtabs=false,
+   	upquote=true,
+	basicstyle={\normalsize \tt \color{darkgrey}},%
+	keywordstyle=\color{VOkey},% for language specific keywords
+	keywordstyle={[2]\color{Vtable}},% for table and column names, manually delimit with ` in LaTeX-source
+	keywordstyle={[3]\color{VOnum}},% for numbers
+	stringstyle=\color{VOstring},
+	commentstyle=\color{VOcomment}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+% === MISC ===
+
+% include icon
+\def\iconscale{0.5}
+\newcommand{\icon}[1]{%
+  % parameter: file name
+  \includegraphics[scale=\iconscale]{\icondir/#1}%
+  %\includegraphics[width=\iconwidth]{#1}%
+}
+
+% definition for aligning images at the top
+\def\imagetop#1{\vtop{\null\hbox{#1}}}
+
+\relax
+\newbox\logobox
+\setbox\logobox=\hbox{}
+\newcommand{\@ddlogo}[1]{%
+	\setbox\logobox=\hbox{\unhbox\logobox\centerline{\hspace{30mm}\includegraphics[height=3cm]{#1}}}}
+\newcommand{\gavologo}{\@ddlogo{gavo-logo.png}}
+\newcommand{\eurovologo}{\@ddlogo{eurovo-logo.png}}
+\newcommand{\astericslogo}{\@ddlogo{asterics-logo.png}}
+\newcommand{\ivoalogo}{\@ddlogo{ivoa-logo.png}}
+
+\newenvironment{standardsinfo}[1]{ % Infos on underlying standards.
+	% use \s{} to highlight individual standards.
+  \def\s##1{{\color{VOkey}##1}}
+  \begin{table}[htb]%
+  \hskip -0.2cm%
+  \begin{minipage}[r]{0.8\columnwidth}%
+  {\color{lightgray}\hrule}
+  \medskip
+  \hfil
+  \begin{minipage}[c]{0.9\columnwidth}
+  \small
+  \makebox[\columnwidth][l]{\sffamily\bfseries\color{VOnum}#1}%
+  \par\smallskip
+  \noindent\raggedright\ignorespaces
+  }%
+  {%
+  \end{minipage}
+  \hfil
+  \medskip
+  {\color{lightgray}\hrule}%
+  \end{minipage}%
+  \end{table}
+  }
+
+\newenvironment{exercise}{%
+	\bigbreak
+	\sffamily\selectfont\color{darkgray}
+	\parindent=0pt
+	\everypar{\hangindent=2.4cm\hangafter=0}
+	\noindent {\bfseries Exercise:} 
+} %
+{%
+\par\bigskip
+}
+
+
+\newcommand{\onvott}{
+\vskip 2ex
+\noindent Find me on VO Text Treasures \url{http://dc.g-vo.org/VOTT}
+\vskip 2ex
+}
+
+\newcommand{\cczero}{%
+	\hbox to \textwidth{%
+	\includegraphics[width=2cm]{../latex-votut/cc0.png} \hfil This document is in
+	the public domain.}
+}
+
+\makeatother
