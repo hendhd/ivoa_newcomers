@@ -12,7 +12,7 @@ curl --get \
 
 Which sends a basic [HTTP GET](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods) request to the web service:
 ```
-GET /ant20_01/nu/cone/scs.xml?RA=43&DEC=45&SR=3 HTTP/1.1
+GET /ant20_01/nu/cone/scs.xml?RA=170&DEC=25&SR=30 HTTP/1.1
 Host: vo.km3net.de
 User-Agent: curl/7.69.1
 Accept: */*
