@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Produced with astropy.io.votable version 3.1.2
+<!-- Produced with astropy.io.votable version 4.2
      http://www.astropy.org/ -->
 <VOTABLE version="1.4" xmlns="http://www.ivoa.net/xml/VOTable/v1.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ivoa.net/xml/VOTable/v1.4">
  <DESCRIPTION>
@@ -20,7 +20,7 @@ datasets within this datacenter.</INFO>
     The IVOA-defined obscore table, containing generic metadata for
     datasets within this datacenter.
    </DESCRIPTION>
-   <FIELD ID="dataproduct_type" arraysize="*" datatype="char" name="dataproduct_type" ucd="meta.id" utype="obscore:obsdataset.dataproducttype">
+   <FIELD ID="dataproduct_type" arraysize="*" datatype="char" name="dataproduct_type" ucd="meta.code.class" utype="obscore:obsdataset.dataproducttype">
     <DESCRIPTION>
      High level scientific classification of the data product, taken
      from an enumeration
@@ -35,7 +35,7 @@ datasets within this datacenter.</INFO>
      <OPTION name="event" value="event"/>
     </VALUES>
    </FIELD>
-   <FIELD ID="dataproduct_subtype" arraysize="*" datatype="char" name="dataproduct_subtype" ucd="meta.id" utype="obscore:obsdataset.dataproductsubtype">
+   <FIELD ID="dataproduct_subtype" arraysize="*" datatype="char" name="dataproduct_subtype" ucd="meta.code.class" utype="obscore:obsdataset.dataproductsubtype">
     <DESCRIPTION>
      Data product specific type
     </DESCRIPTION>
@@ -44,7 +44,12 @@ datasets within this datacenter.</INFO>
     <DESCRIPTION>
      Amount of data processing that has been applied to the data
     </DESCRIPTION>
-    <VALUES null="-32768"/>
+    <VALUES null="-32768">
+     <OPTION name="raw/custom" value=""/>
+     <OPTION name="raw/standard format" value="1"/>
+     <OPTION name="calibrated" value="2"/>
+     <OPTION name="derived" value="3"/>
+    </VALUES>
    </FIELD>
    <FIELD ID="obs_collection" arraysize="*" datatype="char" name="obs_collection" ucd="meta.id" utype="obscore:dataid.collection">
     <DESCRIPTION>
@@ -223,7 +228,7 @@ datasets within this datacenter.</INFO>
      or em.energy)
     </DESCRIPTION>
    </FIELD>
-   <FIELD ID="preview" arraysize="*" datatype="char" name="preview" ucd="meta.ref.url;datalink.preview">
+   <FIELD ID="preview" arraysize="*" datatype="char" name="preview" ucd="meta.ref.url;meta.preview">
     <DESCRIPTION>
      URL of a preview (low-resolution, quick-to-retrieve
      representation) of the data.
@@ -243,7 +248,7 @@ datasets within this datacenter.</INFO>
     <PARAM ID="URI" arraysize="*" datatype="char" name="URI" utype="stc:DataModel.URI" value="http://www.ivoa.net/xml/STC/stc-v1.30.xsd"/>
     <FIELDref ref="s_region" utype="stc:AstroCoordArea.Polygon"/>
    </GROUP>
-   <GROUP ID="ndgplipwptpa" name="note-calib">
+   <GROUP ID="ndewtgeiwdua" name="note-calib">
     <DESCRIPTION>
      The calib_level flag takes the following values:  ===
      ===========================================================  0
@@ -260,29 +265,29 @@ datasets within this datacenter.</INFO>
      <TR>
       <TD>spectrum</TD>
       <TD/>
-      <TD>0</TD>
+      <TD>2</TD>
       <TD>DFBS spectra</TD>
-      <TD>dfbsspec/q/fbs1196-043544.21+714212.7</TD>
-      <TD>DFBSJ043544.21+714212.7 spectrum from fbs1196</TD>
-      <TD>ivo://org.gavo.dc/~?dfbsspec/q/fbs1196-043544.21+714212.7</TD>
+      <TD>dfbsspec/q/fbs0903-220729.08+415815.7</TD>
+      <TD>DFBSJ220729.08+415815.7 spectrum from fbs0903</TD>
+      <TD>ivo://org.gavo.dc/~?dfbsspec/q/fbs0903-220729.08+415815.7</TD>
       <TD/>
-      <TD>http://dc.zah.uni-heidelberg.de/getproduct/dfbsspec/q/fbs1196-043544.21%2B714212.7</TD>
+      <TD>http://dc.zah.uni-heidelberg.de/getproduct/dfbsspec/q/fbs0903-220729.08%2B415815.7</TD>
       <TD>application/x-votable+xml</TD>
       <TD>19</TD>
       <TD/>
       <TD/>
-      <TD>68.9342125000005</TD>
-      <TD>71.70355</TD>
-      <TD>0.000555555555555556</TD>
+      <TD>331.871200000005</TD>
+      <TD>41.971041666667</TD>
+      <TD>0.0005555555555555556</TD>
       <TD/>
       <TD/>
+      <TD>41972.800000001866</TD>
+      <TD>41973.20000000186</TD>
       <TD/>
       <TD/>
-      <TD/>
-      <TD/>
-      <TD>3.19900010481433e-07</TD>
+      <TD>3.298000024187786e-07</TD>
       <TD>6.9e-07</TD>
-      <TD>63.9800033569336</TD>
+      <TD>65.95999908447266</TD>
       <TD>phot.flux.density</TD>
       <TD/>
       <TD>Byurakan Astrophysical Observatory BAO</TD>
@@ -290,15 +295,24 @@ datasets within this datacenter.</INFO>
       <TD>1</TD>
       <TD>1</TD>
       <TD/>
-      <TD>126</TD>
+      <TD>114</TD>
       <TD/>
       <TD/>
       <TD>em.wl</TD>
-      <TD>http://dc.zah.uni-heidelberg.de/getproduct/dfbsspec/q/fbs1196-043544.21%2B714212.7?preview=True</TD>
+      <TD>http://dc.zah.uni-heidelberg.de/getproduct/dfbsspec/q/fbs0903-220729.08%2B415815.7?preview=True</TD>
       <TD>dfbsspec.ssa</TD>
      </TR>
     </TABLEDATA>
    </DATA>
   </TABLE>
+ </RESOURCE>
+ <RESOURCE type="meta" utype="adhoc:service">
+  <DESCRIPTION>
+   A datalink service accompanying obscore. This will forward to data
+   collection-specific datalink services if they exist or return
+   extremely basic datalinks otherwise.
+  </DESCRIPTION>
+  <PARAM ID="standardID" arraysize="*" datatype="char" name="standardID" value="ivo://ivoa.net/std/DataLink#links-1.0"/>
+  <PARAM ID="accessURL" arraysize="*" datatype="char" name="accessURL" value="http://dc.zah.uni-heidelberg.de/__system__/obscore/dl/dlmeta"/>
  </RESOURCE>
 </VOTABLE>
