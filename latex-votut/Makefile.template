@@ -1,0 +1,4 @@
+DOCNAME=main
+SOURCES=$(DOCNAME).tex
+FIGURES=
+include ../latex-votut/Makefile
